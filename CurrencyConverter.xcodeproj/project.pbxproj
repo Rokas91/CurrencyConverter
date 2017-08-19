@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D36DEE544E2A7FB5E6ADAB71 /* Pods_CurrencyConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724C9895F8291FBE64266A0D /* Pods_CurrencyConverter.framework */; };
 		D94474C11F4734F600384DF5 /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C01F4734F600384DF5 /* UIViewController+ext.swift */; };
-		D94474C31F47368200384DF5 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C21F47368200384DF5 /* Router.swift */; };
 		D94474CA1F474D9D00384DF5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C91F474D9D00384DF5 /* MainViewController.swift */; };
 		D9AAD2B11F475486006809BB /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AAD2B01F475486006809BB /* MainAssembly.swift */; };
 		D9AAD2B41F47555A006809BB /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AAD2B31F47555A006809BB /* MainRouter.swift */; };
@@ -18,6 +17,10 @@
 		D9D7B7691F4714260049499D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7B7681F4714260049499D /* AppDelegate.swift */; };
 		D9D7B7701F4714260049499D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9D7B76F1F4714260049499D /* Assets.xcassets */; };
 		D9D7B7731F4714260049499D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9D7B7711F4714260049499D /* LaunchScreen.storyboard */; };
+		D9EF370D1F47882C009E1D8C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF370C1F47882C009E1D8C /* Router.swift */; };
+		D9EF37111F478AB2009E1D8C /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37101F478AB2009E1D8C /* BaseView.swift */; };
+		D9EF37131F478BE0009E1D8C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37121F478BE0009E1D8C /* BaseViewController.swift */; };
+		D9EF37151F478D3B009E1D8C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37141F478D3B009E1D8C /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +28,6 @@
 		724C9895F8291FBE64266A0D /* Pods_CurrencyConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9CD7CEF86D9877DE71C715 /* Pods-CurrencyConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.debug.xcconfig"; sourceTree = "<group>"; };
 		D94474C01F4734F600384DF5 /* UIViewController+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
-		D94474C21F47368200384DF5 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = ../Router.swift; sourceTree = "<group>"; };
 		D94474C91F474D9D00384DF5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D9AAD2B01F475486006809BB /* MainAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		D9AAD2B31F47555A006809BB /* MainRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
@@ -36,6 +38,10 @@
 		D9D7B76F1F4714260049499D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9D7B7721F4714260049499D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9D7B7741F4714260049499D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9EF370C1F47882C009E1D8C /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		D9EF37101F478AB2009E1D8C /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		D9EF37121F478BE0009E1D8C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D9EF37141F478D3B009E1D8C /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +67,10 @@
 		D94474BE1F47344500384DF5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				D94474C21F47368200384DF5 /* Router.swift */,
+				D9EF370F1F478AA0009E1D8C /* Views */,
+				D9EF370E1F478A95009E1D8C /* Controllers */,
 				D94474BF1F4734DF00384DF5 /* Extensions */,
+				D9EF370C1F47882C009E1D8C /* Router.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -113,6 +121,7 @@
 		D94474C81F474D6400384DF5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF37141F478D3B009E1D8C /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +189,22 @@
 				D9D7B7741F4714260049499D /* Info.plist */,
 			);
 			path = CurrencyConverter;
+			sourceTree = "<group>";
+		};
+		D9EF370E1F478A95009E1D8C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF37121F478BE0009E1D8C /* BaseViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D9EF370F1F478AA0009E1D8C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF37101F478AB2009E1D8C /* BaseView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E14813B1BF493F57F31FEF9F /* Pods */ = {
@@ -284,10 +309,18 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,12 +353,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9EF370D1F47882C009E1D8C /* Router.swift in Sources */,
 				D94474CA1F474D9D00384DF5 /* MainViewController.swift in Sources */,
 				D9AAD2B11F475486006809BB /* MainAssembly.swift in Sources */,
 				D9AAD2B71F4755BE006809BB /* AccountViewController.swift in Sources */,
 				D94474C11F4734F600384DF5 /* UIViewController+ext.swift in Sources */,
-				D94474C31F47368200384DF5 /* Router.swift in Sources */,
+				D9EF37131F478BE0009E1D8C /* BaseViewController.swift in Sources */,
 				D9AAD2BA1F4755FD006809BB /* AccountAssembly.swift in Sources */,
+				D9EF37151F478D3B009E1D8C /* MainView.swift in Sources */,
+				D9EF37111F478AB2009E1D8C /* BaseView.swift in Sources */,
 				D9D7B7691F4714260049499D /* AppDelegate.swift in Sources */,
 				D9AAD2B41F47555A006809BB /* MainRouter.swift in Sources */,
 			);

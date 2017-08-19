@@ -18,8 +18,8 @@ class MainRouter: Router {
         super.init()
     }
     
-    func showTestTransfer() {
+    func showAccount() {
         let controller = accountAssembly.accountViewController() as! UIViewController
-        goToViewController(controller)
+        goToViewControllerInNavigationViewController(controller)
     }
 }

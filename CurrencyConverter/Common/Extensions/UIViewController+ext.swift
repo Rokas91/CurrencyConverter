@@ -16,6 +16,32 @@ extension UIViewController {
         }
         return topController!
     }
+    
+    func presentViewControllerInNavigationViewController(_ controller: UIViewController, 
+                                                         modalPresentationStyle: UIModalPresentationStyle? = nil, 
+                                                         modalTransitionStyle: UIModalTransitionStyle? = nil,
+                                                         completion: @escaping (() -> ()) = {}) {
+        let controller = UINavigationController(rootViewController: controller)
+        if let modalPresentationStyle = modalPresentationStyle {
+            controller.modalPresentationStyle = modalPresentationStyle
+        }
+        if let modalTransitionStyle = modalTransitionStyle {
+            controller.modalTransitionStyle = modalTransitionStyle
+        }
+        present(
+            controller,
+            animated: true,
+            completion: {
+                completion()
+        })
+    }
+    
+    func makeNavigationBarTransparent() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .clear
+    }
 }
 
 

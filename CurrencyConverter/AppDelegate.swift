@@ -15,10 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var mainViewController: MainViewController!
+    var mainAssembly: MainAssembly!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        mainAssembly.makeDefault()
+        setAppearance()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = mainViewController
+        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
         window?.makeKeyAndVisible()
         return true
     }
@@ -44,7 +48,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    private func setAppearance() {
+//        //UILabel
+//        UILabel.appearance().defaultFont = .avenir
+//        UILabel.appearance().defaultTextColor = .darkGray
+//        
+//        //UITextField
+//        UITextField.appearance().defaultFont = .avenir
+//        UITextField.appearance().defaultTextColor = .darkGray
+//        
+//        //UITextView
+//        UITextView.appearance().defaultFont = .avenir
+//        UITextView.appearance().defaultTextColor = .darkGray
+//        
+//        //UIButton
+//        UIButton.appearance().defaultFont = .avenir
+//        UIButton.appearance().defaultTitleColor = .white
+        
+        //UINavigationBar
+//        UINavigationBar.appearance().barTintColor = .customGreen
+        UINavigationBar.appearance().tintColor = .white
+        
+        //UIBarButtonItem
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.avenir], for: .normal)
+    }
 }
 
