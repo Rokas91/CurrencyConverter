@@ -34,8 +34,10 @@
 	</array>
     <key>TyphoonInitialAssemblies</key>
     <array>
+        <string>ApplicationAssembly</string>
         <string>MainAssembly</string>
         <string>AccountAssembly</string>
+        <string>WalletAssembly</string>
     </array>
 </dict>
 </plist>

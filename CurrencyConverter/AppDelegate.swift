@@ -15,10 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var mainViewController: MainViewController!
-    var mainAssembly: MainAssembly!
+    var applicationAssembly: ApplicationAssembly!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        mainAssembly.makeDefault()
+        applicationAssembly.makeDefault()
         setAppearance()
         
         window = UIWindow(frame: UIScreen.main.bounds)

@@ -10,12 +10,6 @@ import UIKit
 import Typhoon
 
 class MainAssembly: TyphoonAssembly {
-    dynamic func appDelegate() -> AnyObject {
-        return TyphoonDefinition.withClass(AppDelegate.self) { definition in
-            definition?.injectProperty(#selector(self.mainViewController))
-            definition?.injectProperty(Selector(("mainAssembly")), with: self)
-            } as AnyObject
-    }
     
     dynamic func mainViewController() -> AnyObject {
         return TyphoonDefinition.withClass(MainViewController.self) { definition in

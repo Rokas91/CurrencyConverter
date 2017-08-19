@@ -8,16 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		D36DEE544E2A7FB5E6ADAB71 /* Pods_CurrencyConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724C9895F8291FBE64266A0D /* Pods_CurrencyConverter.framework */; };
+		D91E957E1F4839160061301A /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E957D1F4839160061301A /* Wallet.swift */; };
+		D91E95821F4848A20061301A /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E95811F4848A20061301A /* UserManager.swift */; };
+		D91E95851F4849420061301A /* EntityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E95841F4849420061301A /* EntityRepository.swift */; };
+		D91E95881F4849A30061301A /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E95871F4849A30061301A /* Router.swift */; };
+		D91E958B1F484A260061301A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E958A1F484A260061301A /* UserRepository.swift */; };
+		D91E958D1F484B630061301A /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E958C1F484B630061301A /* WalletManager.swift */; };
+		D91E958F1F4854300061301A /* WalletRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E958E1F4854300061301A /* WalletRepository.swift */; };
+		D91E95941F4859840061301A /* RealmDataFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E95931F4859840061301A /* RealmDataFixture.swift */; };
+		D91E95971F486D850061301A /* UserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E95961F486D850061301A /* UserAssembly.swift */; };
+		D91E95991F486E570061301A /* WalletAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E95981F486E570061301A /* WalletAssembly.swift */; };
+		D91E959C1F4870110061301A /* ApplicationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E959B1F4870110061301A /* ApplicationAssembly.swift */; };
 		D94474C11F4734F600384DF5 /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C01F4734F600384DF5 /* UIViewController+ext.swift */; };
 		D94474CA1F474D9D00384DF5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C91F474D9D00384DF5 /* MainViewController.swift */; };
 		D9AAD2B11F475486006809BB /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AAD2B01F475486006809BB /* MainAssembly.swift */; };
 		D9AAD2B41F47555A006809BB /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AAD2B31F47555A006809BB /* MainRouter.swift */; };
 		D9AAD2B71F4755BE006809BB /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AAD2B61F4755BE006809BB /* AccountViewController.swift */; };
 		D9AAD2BA1F4755FD006809BB /* AccountAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AAD2B91F4755FD006809BB /* AccountAssembly.swift */; };
+		D9B7CA6D1F4831930055EE8B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7CA6C1F4831930055EE8B /* User.swift */; };
 		D9D7B7691F4714260049499D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7B7681F4714260049499D /* AppDelegate.swift */; };
 		D9D7B7701F4714260049499D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9D7B76F1F4714260049499D /* Assets.xcassets */; };
 		D9D7B7731F4714260049499D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9D7B7711F4714260049499D /* LaunchScreen.storyboard */; };
-		D9EF370D1F47882C009E1D8C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF370C1F47882C009E1D8C /* Router.swift */; };
 		D9EF37111F478AB2009E1D8C /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37101F478AB2009E1D8C /* BaseView.swift */; };
 		D9EF37131F478BE0009E1D8C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37121F478BE0009E1D8C /* BaseViewController.swift */; };
 		D9EF37151F478D3B009E1D8C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37141F478D3B009E1D8C /* MainView.swift */; };
@@ -27,18 +38,29 @@
 		4161C102D279CE926BA4F7F4 /* Pods-CurrencyConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.release.xcconfig"; sourceTree = "<group>"; };
 		724C9895F8291FBE64266A0D /* Pods_CurrencyConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9CD7CEF86D9877DE71C715 /* Pods-CurrencyConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.debug.xcconfig"; sourceTree = "<group>"; };
+		D91E957D1F4839160061301A /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		D91E95811F4848A20061301A /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		D91E95841F4849420061301A /* EntityRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityRepository.swift; sourceTree = "<group>"; };
+		D91E95871F4849A30061301A /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		D91E958A1F484A260061301A /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		D91E958C1F484B630061301A /* WalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
+		D91E958E1F4854300061301A /* WalletRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRepository.swift; sourceTree = "<group>"; };
+		D91E95931F4859840061301A /* RealmDataFixture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDataFixture.swift; sourceTree = "<group>"; };
+		D91E95961F486D850061301A /* UserAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAssembly.swift; sourceTree = "<group>"; };
+		D91E95981F486E570061301A /* WalletAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletAssembly.swift; sourceTree = "<group>"; };
+		D91E959B1F4870110061301A /* ApplicationAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationAssembly.swift; sourceTree = "<group>"; };
 		D94474C01F4734F600384DF5 /* UIViewController+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
 		D94474C91F474D9D00384DF5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D9AAD2B01F475486006809BB /* MainAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		D9AAD2B31F47555A006809BB /* MainRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		D9AAD2B61F4755BE006809BB /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D9AAD2B91F4755FD006809BB /* AccountAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAssembly.swift; sourceTree = "<group>"; };
+		D9B7CA6C1F4831930055EE8B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D9D7B7651F4714260049499D /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D7B7681F4714260049499D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9D7B76F1F4714260049499D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9D7B7721F4714260049499D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9D7B7741F4714260049499D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9EF370C1F47882C009E1D8C /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		D9EF37101F478AB2009E1D8C /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		D9EF37121F478BE0009E1D8C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D9EF37141F478D3B009E1D8C /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -64,13 +86,75 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D91E95801F4848880061301A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D91E95811F4848A20061301A /* UserManager.swift */,
+				D91E958C1F484B630061301A /* WalletManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D91E95831F4849180061301A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				D91E95841F4849420061301A /* EntityRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		D91E95861F4849640061301A /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				D91E95871F4849A30061301A /* Router.swift */,
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
+		D91E95891F4849D80061301A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				D91E958A1F484A260061301A /* UserRepository.swift */,
+				D91E958E1F4854300061301A /* WalletRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		D91E95921F48596D0061301A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D91E95931F4859840061301A /* RealmDataFixture.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D91E95951F486D5A0061301A /* Assemblies */ = {
+			isa = PBXGroup;
+			children = (
+				D91E95961F486D850061301A /* UserAssembly.swift */,
+				D91E95981F486E570061301A /* WalletAssembly.swift */,
+			);
+			path = Assemblies;
+			sourceTree = "<group>";
+		};
+		D91E959A1F486FF70061301A /* Assemblies */ = {
+			isa = PBXGroup;
+			children = (
+				D91E959B1F4870110061301A /* ApplicationAssembly.swift */,
+			);
+			path = Assemblies;
+			sourceTree = "<group>";
+		};
 		D94474BE1F47344500384DF5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D91E959A1F486FF70061301A /* Assemblies */,
+				D91E95921F48596D0061301A /* Services */,
+				D91E95861F4849640061301A /* Routers */,
+				D91E95831F4849180061301A /* Repositories */,
 				D9EF370F1F478AA0009E1D8C /* Views */,
 				D9EF370E1F478A95009E1D8C /* Controllers */,
 				D94474BF1F4734DF00384DF5 /* Extensions */,
-				D9EF370C1F47882C009E1D8C /* Router.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -158,6 +242,26 @@
 			path = Assemblies;
 			sourceTree = "<group>";
 		};
+		D9B7CA6A1F4831620055EE8B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D91E95951F486D5A0061301A /* Assemblies */,
+				D91E95891F4849D80061301A /* Repositories */,
+				D91E95801F4848880061301A /* Services */,
+				D9B7CA6B1F48317B0055EE8B /* Entities */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		D9B7CA6B1F48317B0055EE8B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				D9B7CA6C1F4831930055EE8B /* User.swift */,
+				D91E957D1F4839160061301A /* Wallet.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		D9D7B75C1F4714260049499D = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +283,7 @@
 		D9D7B7671F4714260049499D /* CurrencyConverter */ = {
 			isa = PBXGroup;
 			children = (
+				D9B7CA6A1F4831620055EE8B /* User */,
 				D94474C61F474C9300384DF5 /* Currency */,
 				D94474C51F474C4800384DF5 /* Home */,
 				D94474C41F473E8200384DF5 /* Account */,
@@ -353,17 +458,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9EF370D1F47882C009E1D8C /* Router.swift in Sources */,
+				D91E957E1F4839160061301A /* Wallet.swift in Sources */,
+				D91E95821F4848A20061301A /* UserManager.swift in Sources */,
 				D94474CA1F474D9D00384DF5 /* MainViewController.swift in Sources */,
+				D91E95851F4849420061301A /* EntityRepository.swift in Sources */,
+				D91E959C1F4870110061301A /* ApplicationAssembly.swift in Sources */,
 				D9AAD2B11F475486006809BB /* MainAssembly.swift in Sources */,
 				D9AAD2B71F4755BE006809BB /* AccountViewController.swift in Sources */,
+				D91E95941F4859840061301A /* RealmDataFixture.swift in Sources */,
 				D94474C11F4734F600384DF5 /* UIViewController+ext.swift in Sources */,
+				D91E95881F4849A30061301A /* Router.swift in Sources */,
 				D9EF37131F478BE0009E1D8C /* BaseViewController.swift in Sources */,
 				D9AAD2BA1F4755FD006809BB /* AccountAssembly.swift in Sources */,
 				D9EF37151F478D3B009E1D8C /* MainView.swift in Sources */,
+				D9B7CA6D1F4831930055EE8B /* User.swift in Sources */,
 				D9EF37111F478AB2009E1D8C /* BaseView.swift in Sources */,
+				D91E95991F486E570061301A /* WalletAssembly.swift in Sources */,
 				D9D7B7691F4714260049499D /* AppDelegate.swift in Sources */,
+				D91E958F1F4854300061301A /* WalletRepository.swift in Sources */,
+				D91E95971F486D850061301A /* UserAssembly.swift in Sources */,
+				D91E958B1F484A260061301A /* UserRepository.swift in Sources */,
 				D9AAD2B41F47555A006809BB /* MainRouter.swift in Sources */,
+				D91E958D1F484B630061301A /* WalletManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

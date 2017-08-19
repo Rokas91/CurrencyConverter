@@ -9,9 +9,7 @@ target 'CurrencyConverter' do
   :git => 'https://github.com/appsquickly/Typhoon',
   :commit => '366f1f04422b7ce72c59fc0ca4f292d3d0390717'
 
-  pod 'RealmSwift',
-  :git => 'https://github.com/realm/realm-cocoa.git', branch: 'master', submodules: true,
-  :commit => '17ce169ba38e3b92caec1be80c538129eba4c4e4'
+  pod 'RealmSwift', '~> 2.9.1'
 
   pod 'Alamofire',
   :git => 'https://github.com/Alamofire/Alamofire.git',
