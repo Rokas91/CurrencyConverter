@@ -9,13 +9,11 @@
 import Typhoon
 
 class UserAssembly: TyphoonAssembly {
-    var walletAssembly: WalletAssembly!
     
     dynamic func userManager() -> AnyObject {
         return TyphoonDefinition.withClass(UserManager.self) { definition in
-            definition?.useInitializer(#selector(UserManager.init(userRepository:walletManager:)), parameters: { initializer in
+            definition?.useInitializer(#selector(UserManager.init(userRepository:)), parameters: { initializer in
                 initializer?.injectParameter(with: self.userRepository())
-                initializer?.injectParameter(with: (self.walletAssembly.walletManager()))
             })
             
             definition?.scope = TyphoonScope.singleton

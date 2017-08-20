@@ -26,6 +26,7 @@ class BaseView: UIView {
     }
     
     func render() {
+        backgroundColor = .customGreen
     }
     
     func getDelegate() -> BaseViewDelegate? {

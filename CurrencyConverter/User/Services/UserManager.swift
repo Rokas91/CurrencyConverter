@@ -10,17 +10,12 @@ import Foundation
 
 class UserManager: NSObject {
     private let userRepository: UserRepository
-    private let walletManager: WalletManager
     
-    init(
-        userRepository: UserRepository,
-        walletManager: WalletManager
-        ) {
-        self.userRepository = userRepository
-        self.walletManager = walletManager
+    var user: User? {
+        return userRepository.findFirst()
     }
     
-    func getUser() -> User? {
-        return userRepository.findFirst()
+    init(userRepository: UserRepository) {
+        self.userRepository = userRepository
     }
 }

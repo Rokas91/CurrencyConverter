@@ -7,6 +7,35 @@
 //
 
 import UIKit
+import Typhoon
 
 class MainViewController: BaseViewController {
+    var userManager: UserManager!
+    var realmDataFixture: RealmDataFixture!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let _ = userManager.user {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sugeneruoti pirminius duomenis", style: .plain, target: self, action: #selector(dataGenerationTapped))
+        }
+        
+    }
+}
+
+
+// MARK: - Selectors
+
+extension MainViewController {
+    
+    fileprivate dynamic func dataGenerationTapped() {
+        realmDataFixture.loadData()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
+    }
+    
+    fileprivate dynamic func convertTapped() {
+    }
 }

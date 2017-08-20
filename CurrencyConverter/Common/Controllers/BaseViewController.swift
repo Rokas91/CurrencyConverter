@@ -10,19 +10,14 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-//        edgesForExtendedLayout = UIRectEdge()
-//        let backImage = UIImage(named: "backButton")?.resizableImage(withCapInsets: UIEdgeInsetsMake(1, 14, 1, 1))
-//        navigationItem.backBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(onBackTapped))
-    }
-    
     override func loadView() {
         view = createView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        makeNavigationBarTransparent()
     }
     
     func createView() -> UIView {

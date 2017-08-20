@@ -36,8 +36,9 @@
     <array>
         <string>ApplicationAssembly</string>
         <string>MainAssembly</string>
-        <string>AccountAssembly</string>
+        <string>UserAssembly</string>
         <string>WalletAssembly</string>
+        <string>AccountAssembly</string>
     </array>
 </dict>
 </plist>
