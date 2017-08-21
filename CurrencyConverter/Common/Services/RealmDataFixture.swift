@@ -67,123 +67,123 @@ class RealmDataFixture: NSObject {
         wallet.accountNumber = accountNumber
         
         currencyBalance.currency = "EUR"
-        currencyBalance.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance)
         
         currencyBalance1.currency = "BGN"
-        currencyBalance1.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance1.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance1)
         
         currencyBalance2.currency = "BRL"
-        currencyBalance2.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance2.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance2)
         
         currencyBalance3.currency = "CAD"
-        currencyBalance3.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance3.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance3)
         
         currencyBalance4.currency = "CHF"
-        currencyBalance4.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance4.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance4)
         
         currencyBalance5.currency = "CNY"
-        currencyBalance5.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance5.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance5)
         
         currencyBalance6.currency = "CZK"
-        currencyBalance6.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance6.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance6)
         
         currencyBalance7.currency = "DKK"
-        currencyBalance7.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance7.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance7)
         
         currencyBalance8.currency = "GBP"
-        currencyBalance8.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance8.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance8)
         
         currencyBalance9.currency = "HKD"
-        currencyBalance9.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance9.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance9)
         
         currencyBalance10.currency = "HRK"
-        currencyBalance10.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance10.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance10)
         
         currencyBalance11.currency = "HUF"
-        currencyBalance11.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance11.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance11)
         
         currencyBalance12.currency = "IDR"
-        currencyBalance12.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance12.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance12)
         
         currencyBalance13.currency = "ILS"
-        currencyBalance13.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance13.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance13)
         
         currencyBalance14.currency = "INR"
-        currencyBalance14.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance14.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance14)
         
         currencyBalance15.currency = "JPY"
-        currencyBalance15.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance15.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance15)
         
         currencyBalance16.currency = "KRW"
-        currencyBalance16.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance16.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance16)
         
         currencyBalance17.currency = "MXN"
-        currencyBalance17.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance17.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance17)
         
         currencyBalance18.currency = "NOK"
-        currencyBalance18.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance18.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance18)
         
         currencyBalance19.currency = "NZD"
-        currencyBalance19.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance19.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance19)
         
         currencyBalance20.currency = "PHP"
-        currencyBalance20.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance20.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance20)
         
         currencyBalance21.currency = "PLN"
-        currencyBalance21.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance21.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance21)
         
         currencyBalance22.currency = "RON"
-        currencyBalance22.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance22.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance22)
         
         currencyBalance23.currency = "RUB"
-        currencyBalance23.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance23.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance23)
         
         currencyBalance24.currency = "SEK"
-        currencyBalance24.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance24.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance24)
         
         currencyBalance25.currency = "SGD"
-        currencyBalance25.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance25.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance25)
         
         currencyBalance26.currency = "THB"
-        currencyBalance26.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance26.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance26)
         
         currencyBalance27.currency = "TRY"
-        currencyBalance27.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance27.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance27)
         
         currencyBalance28.currency = "USD"
-        currencyBalance28.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance28.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance28)
         
         currencyBalance29.currency = "ZAR"
-        currencyBalance29.atDisposal = Int(arc4random_uniform(10000))
+        currencyBalance29.atDisposal = Double(arc4random_uniform(10000))
         wallet.currencyBalances.append(currencyBalance29)
         
         return wallet

@@ -14,54 +14,58 @@ protocol AccountSelectionViewControllerDelegate: class {
 
 class AccountSelectionViewController: BaseViewController {
     weak var delegate: AccountSelectionViewControllerDelegate?
-    var currentWallet: Wallet? 
-    var currentCurrency: String?
-    var wallets = [Wallet]()
     private let accountSelectionTableViewController: AccountSelectionTableViewController
-
-    private var sections: [AccountSection] {
-        var sections = [AccountSection]()
-        wallets.forEach {
-            sections.append(AccountSection(wallet: $0, currencyBalances: Array($0.currencyBalances)))
-        }
-        return sections
-    }
     
+    var currentWallet: Wallet? {
+        didSet{
+            accountSelectionTableViewController.currentWallet = currentWallet
+        }
+    }
+    var currentCurrency: String? {
+        didSet{
+            accountSelectionTableViewController.currentCurrency = currentCurrency
+        }
+    }
+    var wallets = [Wallet]() {
+        didSet{
+            accountSelectionTableViewController.wallets = wallets
+        }
+    }
+
     init(accountSelectionTableViewController: AccountSelectionTableViewController) {
         self.accountSelectionTableViewController = accountSelectionTableViewController
         super.init()
     }
     
     override func viewDidLoad() {
+        accountSelectionTableViewController.setTable(getView().accountSelectionTableView)
+        accountSelectionTableViewController.reloadTable()
         super.viewDidLoad()
         
         getView().delegate = self
-        accountSelectionTableViewController.setTable(getView().accountSelectionTableView)
-
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(onBackTapped))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        accountSelectionTableViewController.reloadTable()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        accountSelectionTableViewController.getTable().currentWallet = currentWallet
-        accountSelectionTableViewController.getTable().currentCurrency = currentCurrency
-        accountSelectionTableViewController.getTable().sections = sections
-        accountSelectionTableViewController.getTable().reloadData()
-    }
-    
     override func getView() -> AccountSelectionView {
         return super.getView() as! AccountSelectionView
     }
-
 }
+
+// MARK: - AccountSelectionViewDelegate
 
 extension AccountSelectionViewController: AccountSelectionViewDelegate {
     func onAccountSelected(wallet: Wallet, balance: CurrencyBalance) {
         delegate?.onAccountSelected(wallet: wallet, balance: balance)
+        dismiss(animated: true)
     }
 }

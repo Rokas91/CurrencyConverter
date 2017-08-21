@@ -59,4 +59,52 @@ class WalletManager: NSObject {
     func getAccountNumber(by walletId: String) -> String? {
         return walletRepository.find(walletId)?.accountNumber
     }
+    
+    func getCurrencyBalance(walletId: String, currency: String) -> CurrencyBalance? {
+        for wallet in Array(walletRepository.findAll()) {
+            if wallet.id == walletId {
+                for currencyBalance in wallet.currencyBalances {
+                    if currencyBalance.currency == currency {
+                        return currencyBalance
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    func createEmptyBalance(of currency: String) -> CurrencyBalance {
+        let currencyBalance = CurrencyBalance()
+        currencyBalance.setAtDisposal(amount: 0, currency: currency)
+        return currencyBalance
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

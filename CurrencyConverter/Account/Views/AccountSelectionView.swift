@@ -36,7 +36,7 @@ class AccountSelectionView: BaseView {
     fileprivate lazy var backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = self.backgroundColor
+        view.backgroundColor = .customGreen
         return view
     }()
     
@@ -48,9 +48,7 @@ class AccountSelectionView: BaseView {
 // MARK: - Layout
 
 extension AccountSelectionView {
-    override func render() {
-        super.render()
-        
+    override func onViewDidLoad() {
         layoutBlurBackground()
         layoutBackgroundView()
         layoutAccountSelectionTableView()
@@ -98,7 +96,7 @@ extension AccountSelectionView {
     }
 }
 
-// MARK: - Selectors
+// MARK: - AccountSelectionTableViewDelegate
 
 extension AccountSelectionView: AccountSelectionTableViewDelegate {
     func onAccountSelected(wallet: Wallet, balance: CurrencyBalance) {

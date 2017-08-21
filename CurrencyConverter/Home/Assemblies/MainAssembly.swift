@@ -19,6 +19,8 @@ class MainAssembly: TyphoonAssembly {
             definition?.injectProperty(#selector(self.userAssembly.userManager))
             definition?.injectProperty(#selector(self.walletAssembly.walletManager))
             definition?.injectProperty(#selector(self.accountAssembly.accountSelectionViewController))
+            definition?.injectProperty(#selector(self.accountAssembly.upperCurrencySelectionViewController))
+            definition?.injectProperty(#selector(self.accountAssembly.lowerCurrencySelectionViewController))
             definition?.scope = TyphoonScope.prototype
             } as AnyObject
     }

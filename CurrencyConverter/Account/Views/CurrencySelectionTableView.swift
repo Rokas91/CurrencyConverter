@@ -1,26 +1,24 @@
 //
-//  AccountSelectionTableView.swift
+//  CurrencySelectionTableView.swift
 //  CurrencyConverter
 //
-//  Created by Rokas on 20/08/2017.
+//  Created by Rokas on 21/08/2017.
 //  Copyright © 2017 Rokas. All rights reserved.
 //
 
 import UIKit
 
-protocol AccountSelectionTableViewDelegate: BaseTableViewDelegate {
-    func onAccountSelected(wallet: Wallet, balance: CurrencyBalance)
+protocol CurrencySelectionTableViewDelegate: BaseTableViewDelegate {
+    func onCurrencySelected(balance: CurrencyBalance)
 }
 
-class AccountSelectionTableView: BaseTableView {
-    var currentWallet: Wallet?
+class CurrencySelectionTableView: BaseTableView {
+    var currencyBalances = [CurrencyBalance]()
     var currentCurrency: String?
-    var sections = [AccountSection]()
     
     override func onTableViewInitialized() {
         super.onTableViewInitialized()
         
-        register(SelectionTableViewHeaderCell.self, forHeaderFooterViewReuseIdentifier: "selectionTableViewHeaderCell")
         register(SelectionTableViewCell.self, forCellReuseIdentifier: "selectionTableViewCell")
         
         delegate = self
@@ -32,24 +30,16 @@ class AccountSelectionTableView: BaseTableView {
         backgroundColor = .clear
     }
     
-    func getDelegate() -> AccountSelectionTableViewDelegate? {
-        return baseTableViewDelegate as? AccountSelectionTableViewDelegate
+    func getDelegate() -> CurrencySelectionTableViewDelegate? {
+        return baseTableViewDelegate as? CurrencySelectionTableViewDelegate
     }
 }
 
-extension AccountSelectionTableView: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "selectionTableViewHeaderCell") as! SelectionTableViewHeaderCell
-        sectionHeader.wallet = sections[section].wallet
-        return sectionHeader
-    }
-    
+extension CurrencySelectionTableView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let wallet = sections[indexPath.section].wallet
-        let currencyBalances = sections[indexPath.section].currencyBalances
-        let currencyBalance = currencyBalances[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "selectionTableViewCell") as! SelectionTableViewCell
-        if let currentWallet = currentWallet, wallet.id == currentWallet.id, currencyBalance.currency == currentCurrency {
+        let currencyBalance = currencyBalances[indexPath.row]
+        if currencyBalance.currency == currentCurrency {
             cell.transparentView.backgroundColor = .clear
         }
         cell.currencyBalance = currencyBalance
@@ -85,20 +75,15 @@ extension AccountSelectionTableView: UITableViewDataSource, UITableViewDelegate 
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].currencyBalances.count
+        return currencyBalances.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currencyBalance = sections[indexPath.section].currencyBalances[indexPath.row]
-        getDelegate()?.onAccountSelected(wallet: sections[indexPath.section].wallet, balance: currencyBalance)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
+        getDelegate()?.onCurrencySelected(balance: currencyBalances[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

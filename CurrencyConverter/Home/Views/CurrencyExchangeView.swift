@@ -21,10 +21,9 @@ protocol CurrencyExchangeViewDelegate: class {
 class CurrencyExchangeView: UIView {
     weak var delegate: CurrencyExchangeViewDelegate?
     
-    lazy var flagImageView: UIImageView = {
+    lazy var flagImageView: RoundImageView = {
         let imageView = RoundImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.setFlag(with: "EUR")
         return imageView
     }()
     
@@ -33,7 +32,6 @@ class CurrencyExchangeView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         label.textColor = .white
-        label.text = "EUR"
         return label
     }()
     

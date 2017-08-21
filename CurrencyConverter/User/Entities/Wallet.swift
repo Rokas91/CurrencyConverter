@@ -20,16 +20,10 @@ class Wallet: Object {
 
 class CurrencyBalance: Object {
     dynamic var currency = ""
-    dynamic var atDisposal = 0
+    dynamic var atDisposal: Double = 0
     
-    func setAtDisposal(amount: Int, currency: String) {
+    func setAtDisposal(amount: Double, currency: String) {
         self.atDisposal = amount
         self.currency = currency
-    }
-    
-    static func createEmptyBalanceWithCurrencyCode(_ currency: String) -> CurrencyBalance {
-        let currencyBalance = CurrencyBalance()
-        currencyBalance.setAtDisposal(amount: 0, currency: currency)
-        return currencyBalance
     }
 }

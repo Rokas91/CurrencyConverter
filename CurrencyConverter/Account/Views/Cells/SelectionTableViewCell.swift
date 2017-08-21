@@ -1,5 +1,5 @@
 //
-//  AccountCell.swift
+//  SelectionTableViewCell.swift
 //  CurrencyConverter
 //
 //  Created by Rokas on 20/08/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountCell: BaseTableViewCell {
+class SelectionTableViewCell: BaseTableViewCell {
     lazy var transparentView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 1, alpha: 0.7)
@@ -83,7 +83,7 @@ class AccountCell: BaseTableViewCell {
 
 // MARK: - Layout
 
-extension AccountCell {
+extension SelectionTableViewCell {
     override func render() {
         layoutFlagImageView()
         layoutCurrencyLabel()

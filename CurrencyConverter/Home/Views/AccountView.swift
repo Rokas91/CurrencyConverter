@@ -24,22 +24,20 @@ class AccountView: UIView {
         return label
     }()
     
+    lazy var balanceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.sizeToFit()
+        label.textColor = .white
+        return label
+    }()
+    
     fileprivate lazy var forwardArrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "forwardArrow")
         
         return imageView
-    }()
-    
-    fileprivate lazy var balanceLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Balance"
-        label.sizeToFit()
-        //        label.font = UIFont.avenir(size: 20)
-        label.textColor = .white
-        return label
     }()
     
     fileprivate lazy var accountButton: UIButton = {
