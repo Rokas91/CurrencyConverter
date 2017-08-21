@@ -9,7 +9,11 @@
 import RealmSwift
 
 class WalletRepository: EntityRepository {
-    func find(_ id: Int) -> Wallet? {
+    func find(_ id: String) -> Wallet? {
         return realm.object(ofType: Wallet.self, forPrimaryKey: id as AnyObject)
+    }
+    
+    func findAll() -> Results<Wallet> {
+        return realm.objects(Wallet.self)
     }
 }

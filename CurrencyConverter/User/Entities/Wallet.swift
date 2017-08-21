@@ -11,7 +11,6 @@ import RealmSwift
 class Wallet: Object {
     dynamic var id = UUID().uuidString
     dynamic var accountNumber = ""
-    dynamic var selectedCurrency = ""
     let currencyBalances = List<CurrencyBalance>()
     
     override static func primaryKey() -> String? {

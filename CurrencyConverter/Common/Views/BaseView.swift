@@ -13,23 +13,28 @@ protocol BaseViewDelegate: class {}
 
 class BaseView: UIView {
     weak var delegate: BaseViewDelegate?
+    private var isLayoutSubviewed = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         (TyphoonComponentFactory.defaultFactory() as AnyObject).inject(self)
-        render()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func render() {
-        backgroundColor = .customGreen
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if !isLayoutSubviewed {
+            render()
+            isLayoutSubviewed = true
+        }
     }
     
-    func getDelegate() -> BaseViewDelegate? {
-        return delegate
+    dynamic func render() {
+        backgroundColor = .customGreen
     }
 }

@@ -11,12 +11,14 @@ import Typhoon
 
 class MainAssembly: TyphoonAssembly {
     var userAssembly: UserAssembly!
-    var applicationAssembly: ApplicationAssembly!
+    var walletAssembly: WalletAssembly!
+    var accountAssembly: AccountAssembly!
     
     dynamic func mainViewController() -> AnyObject {
         return TyphoonDefinition.withClass(MainViewController.self) { definition in
             definition?.injectProperty(#selector(self.userAssembly.userManager))
-            definition?.injectProperty(#selector(self.applicationAssembly.realmDataFixture))
+            definition?.injectProperty(#selector(self.walletAssembly.walletManager))
+            definition?.injectProperty(#selector(self.accountAssembly.accountSelectionViewController))
             definition?.scope = TyphoonScope.prototype
             } as AnyObject
     }

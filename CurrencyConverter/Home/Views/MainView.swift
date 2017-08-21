@@ -8,21 +8,29 @@
 
 import UIKit
 
+protocol MainViewDelegate: BaseViewDelegate {
+    func onAccountButtonTapped()
+    func onCurrencyExchangeButtonTapped(view: UIView)
+}
+
 class MainView: BaseView {
     lazy var accountView: AccountView = {
         let view = AccountView()
+        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var upperCurrencyExchangeView: CurrencyExchangeView = {
-        let view = CurrencyExchangeView()
+    lazy var upperCurrencyExchangeView: UpperCurrencyExchangeView = {
+        let view = UpperCurrencyExchangeView()
+        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var lowerCurrencyExchangeView: CurrencyExchangeView = {
-        let view = CurrencyExchangeView()
+    lazy var lowerCurrencyExchangeView: LowerCurrencyExchangeView = {
+        let view = LowerCurrencyExchangeView()
+        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -45,6 +53,10 @@ class MainView: BaseView {
         context?.addLine(to: CGPoint(x: frame.size.width / 2 + 20, y: accountView.frame.maxY + 90))
         context?.addLine(to: CGPoint(x: frame.size.width - 10, y: accountView.frame.maxY + 90))
         context?.strokePath()
+    }
+    
+    func getDelegate() -> MainViewDelegate? {
+        return delegate as? MainViewDelegate
     }
 }
 
@@ -82,6 +94,22 @@ extension MainView {
         lowerCurrencyExchangeView.leftAnchor.constraint(equalTo: upperCurrencyExchangeView.leftAnchor).isActive = true
         lowerCurrencyExchangeView.rightAnchor.constraint(equalTo: upperCurrencyExchangeView.rightAnchor).isActive = true
         lowerCurrencyExchangeView.heightAnchor.constraint(equalTo: upperCurrencyExchangeView.heightAnchor).isActive = true
+    }
+}
+
+// MARK: - CurrencyExchangeViewDelegate
+
+extension MainView: CurrencyExchangeViewDelegate {
+    func onCurrencyExchangeButtonTapped(view: UIView) {
+        getDelegate()?.onCurrencyExchangeButtonTapped(view: view)
+    }
+}
+
+// MARK: - AccountViewDelegate
+
+extension MainView: AccountViewDelegate {
+    func onAccountButtonTapped() {
+        getDelegate()?.onAccountButtonTapped()
     }
 }
 

@@ -12,7 +12,7 @@ protocol AccountViewDelegate: class {
 }
 
 class AccountView: UIView {
-    weak var accountViewDelegate: AccountViewDelegate?
+    weak var delegate: AccountViewDelegate?
     
     lazy var accountLabel: UILabel = {
         let label = UILabel()

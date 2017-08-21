@@ -10,7 +10,6 @@ import RealmSwift
 
 class User: Object {
     dynamic var id = UUID().uuidString
-    dynamic var selectedWallet: Wallet!
     var wallets = List<Wallet>()
 
     override static func primaryKey() -> String? {

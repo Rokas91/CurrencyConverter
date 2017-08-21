@@ -18,4 +18,11 @@ class UserManager: NSObject {
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
     }
+    
+    func getWallets() -> [Wallet] {
+        if let wallets = user?.wallets {
+            return Array(wallets)
+        }
+        return [Wallet]()
+    }
 }

@@ -11,18 +11,27 @@ import Typhoon
 
 class MainViewController: BaseViewController {
     var userManager: UserManager!
-    var realmDataFixture: RealmDataFixture!
+    var walletManager: WalletManager!
+    var accountSelectionViewController: AccountSelectionViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let _ = userManager.user {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sugeneruoti pirminius duomenis", style: .plain, target: self, action: #selector(dataGenerationTapped))
-        }
+        getView().delegate = self
+        accountSelectionViewController.delegate = self
+        accountSelectionViewController.wallets = userManager.getWallets()
+//        accountSelectionViewController.currentWallet = walletManager.lastUsedWallet
+//        accountSelectionViewController.currentCurrency = walletManager.lastUsedCurrency
+        accountSelectionViewController.currentWallet = userManager.getWallets().first!
+        print("logas currentWallet \(accountSelectionViewController.currentWallet)")
+        accountSelectionViewController.currentCurrency = "EUR"
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    override func getView() -> MainView {
+        return super.getView() as! MainView
     }
 }
 
@@ -30,12 +39,58 @@ class MainViewController: BaseViewController {
 // MARK: - Selectors
 
 extension MainViewController {
-    
-    fileprivate dynamic func dataGenerationTapped() {
-        realmDataFixture.loadData()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
-    }
-    
     fileprivate dynamic func convertTapped() {
     }
 }
+
+// MARK: - MainViewDelegate
+
+extension MainViewController: MainViewDelegate {
+    func onAccountButtonTapped() {
+        presentViewControllerInNavigationViewController(accountSelectionViewController, modalPresentationStyle: .overFullScreen, modalTransitionStyle: .crossDissolve)
+    }
+    
+    func onCurrencyExchangeButtonTapped(view: UIView) {
+        if view.isKind(of: UpperCurrencyExchangeView.self) {
+            
+        } else {
+            
+        }
+    }
+}
+
+// MARK: - AccountSelectionViewControllerDelegate
+
+extension MainViewController: AccountSelectionViewControllerDelegate {
+    func onAccountSelected(wallet: Wallet, balance: CurrencyBalance) {
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,24 +8,30 @@
 
 import UIKit
 
+class UpperCurrencyExchangeView: CurrencyExchangeView {
+}
+
+class LowerCurrencyExchangeView: CurrencyExchangeView {
+}
+
 protocol CurrencyExchangeViewDelegate: class {
-    
+    func onCurrencyExchangeButtonTapped(view: UIView)
 }
 
 class CurrencyExchangeView: UIView {
-    weak var currencyExchangeViewDelegate: CurrencyExchangeViewDelegate?
+    weak var delegate: CurrencyExchangeViewDelegate?
     
     lazy var flagImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = RoundImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setFlag(with: "EUR")
         return imageView
     }()
     
-    fileprivate lazy var currencyLabel: UILabel = {
+    lazy var currencyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
-        //            label.font = .avenir
         label.textColor = .white
         label.text = "EUR"
         return label
@@ -49,7 +55,7 @@ class CurrencyExchangeView: UIView {
         let textField = UITextField()
 //        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.keyboardType = .numberPad
+        textField.keyboardType = .decimalPad
         textField.textAlignment = .right
         return textField
     }()
@@ -144,7 +150,7 @@ extension CurrencyExchangeView {
 
 extension CurrencyExchangeView {
     fileprivate dynamic func buttonTapped() {
-        
+        delegate?.onCurrencyExchangeButtonTapped(view: self)
     }
 }
 
