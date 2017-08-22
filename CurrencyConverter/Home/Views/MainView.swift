@@ -35,12 +35,6 @@ class MainView: BaseView {
         return view
     }()
     
-    override func render() {
-        super.render()
-        
-        setupLayout()
-    }
-    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
@@ -63,13 +57,15 @@ class MainView: BaseView {
 // MARK: - Layout
 
 extension MainView {
-    fileprivate func setupLayout() {
-        setupAccountView()
-        setupUpperCurrencyExchangeView()
-        setupLowerCurrencyExchangeView()
+    override func render() {
+        super.render()
+        
+        layoutAccountView()
+        layoutUpperCurrencyExchangeView()
+        layoutLowerCurrencyExchangeView()
     }
     
-    private func setupAccountView() {
+    private func layoutAccountView() {
         addSubview(accountView)
         
         accountView.topAnchor.constraint(equalTo: topAnchor, constant: 70).isActive = true
@@ -78,7 +74,7 @@ extension MainView {
         accountView.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    private func setupUpperCurrencyExchangeView() {
+    private func layoutUpperCurrencyExchangeView() {
         addSubview(upperCurrencyExchangeView)
         
         upperCurrencyExchangeView.topAnchor.constraint(equalTo: accountView.bottomAnchor, constant: 35).isActive = true
@@ -87,7 +83,7 @@ extension MainView {
         upperCurrencyExchangeView.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    private func setupLowerCurrencyExchangeView() {
+    private func layoutLowerCurrencyExchangeView() {
         addSubview(lowerCurrencyExchangeView)
         
         lowerCurrencyExchangeView.topAnchor.constraint(equalTo: upperCurrencyExchangeView.bottomAnchor, constant: 10).isActive = true
@@ -112,35 +108,3 @@ extension MainView: AccountViewDelegate {
         getDelegate()?.onAccountButtonTapped()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

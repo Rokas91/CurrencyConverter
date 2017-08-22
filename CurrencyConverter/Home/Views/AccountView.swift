@@ -50,7 +50,7 @@ class AccountView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupLayout()
+        layout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,28 +61,28 @@ class AccountView: UIView {
 // MARK: - Layout
 
 extension AccountView {
-    fileprivate func setupLayout() {
-        setupAccountLabel()
-        setupBalanceLabel()
-        setupForwardArrowImageView()
-        setupAccountButton()
+    fileprivate func layout() {
+        layoutAccountLabel()
+        layoutBalanceLabel()
+        layoutForwardArrowImageView()
+        layoutAccountButton()
     }
     
-    private func setupAccountLabel() {
+    private func layoutAccountLabel() {
         addSubview(accountLabel)
         
         accountLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         accountLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
     }
     
-    private func setupBalanceLabel() {
+    private func layoutBalanceLabel() {
         addSubview(balanceLabel)
         
         balanceLabel.leftAnchor.constraint(equalTo: accountLabel.leftAnchor).isActive = true
         balanceLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
-    private func setupForwardArrowImageView() {
+    private func layoutForwardArrowImageView() {
         addSubview(forwardArrowImageView)
         
         forwardArrowImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
@@ -91,7 +91,7 @@ extension AccountView {
         forwardArrowImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
-    private func setupAccountButton() {
+    private func layoutAccountButton() {
         addSubview(accountButton)
         
         accountButton.topAnchor.constraint(equalTo: topAnchor).isActive = true

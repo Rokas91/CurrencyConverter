@@ -15,14 +15,42 @@ class ApplicationAssembly: TyphoonAssembly {
     dynamic func appDelegate() -> AnyObject {
         return TyphoonDefinition.withClass(AppDelegate.self) { definition in
             definition?.injectProperty(#selector(self.mainAssembly.mainViewController))
+            definition?.injectProperty(Selector(("applicationAssembly")), with: self)
+            } as AnyObject
+    }
+    
+    dynamic func applicationUpdateNotifierListener() -> AnyObject {
+        return TyphoonDefinition.withClass(ApplicationUpdateNotifierListener.self) { definition in
             definition?.injectProperty(#selector(self.userAssembly.userManager))
             definition?.injectProperty(#selector(self.realmDataFixture))
-            definition?.injectProperty(Selector(("applicationAssembly")), with: self)
+            definition?.injectProperty(#selector(self.currencyManager))
+            definition?.scope = TyphoonScope.singleton
             } as AnyObject
     }
     
     dynamic func realmDataFixture() -> AnyObject {
         return TyphoonDefinition.withClass(RealmDataFixture.self) { definition in
+            definition?.useInitializer(#selector(RealmDataFixture.init(currencyManager:)), parameters: { initializer in
+                initializer?.injectParameter(with: self.currencyManager())
+            })
+            definition?.scope = TyphoonScope.singleton
+            } as AnyObject
+    }
+    
+    dynamic func currencyAPIClient() -> AnyObject {
+        return TyphoonDefinition.withClass(CurrencyAPIClient.self) { definition in
+            definition?.useInitializer(#selector(CurrencyAPIClient.init(baseUrl:)), parameters: { initializer in
+                initializer?.injectParameter(with: BASE_URL)
+            })
+            definition?.scope = TyphoonScope.singleton
+            } as AnyObject
+    }
+    
+    dynamic func currencyManager() -> AnyObject {
+        return TyphoonDefinition.withClass(CurrencyManager.self) { definition in
+            definition?.useInitializer(#selector(CurrencyManager.init(currencyAPIClient:)), parameters: { initializer in
+                initializer?.injectParameter(with: self.currencyAPIClient())
+            })
             definition?.scope = TyphoonScope.singleton
             } as AnyObject
     }

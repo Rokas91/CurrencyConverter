@@ -17,6 +17,14 @@ class AccountSelectionTableView: BaseTableView {
     var currentCurrency: String?
     var sections = [AccountSection]()
     
+    init() {
+        super.init(frame: .zero, style: .grouped)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func onTableViewInitialized() {
         super.onTableViewInitialized()
         
@@ -36,6 +44,8 @@ class AccountSelectionTableView: BaseTableView {
         return baseTableViewDelegate as? AccountSelectionTableViewDelegate
     }
 }
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension AccountSelectionTableView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

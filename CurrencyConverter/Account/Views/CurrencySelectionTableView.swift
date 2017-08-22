@@ -16,6 +16,14 @@ class CurrencySelectionTableView: BaseTableView {
     var currencyBalances = [CurrencyBalance]()
     var currentCurrency: String?
     
+    init() {
+        super.init(frame: .zero, style: .grouped)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func onTableViewInitialized() {
         super.onTableViewInitialized()
         
@@ -34,6 +42,8 @@ class CurrencySelectionTableView: BaseTableView {
         return baseTableViewDelegate as? CurrencySelectionTableViewDelegate
     }
 }
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension CurrencySelectionTableView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

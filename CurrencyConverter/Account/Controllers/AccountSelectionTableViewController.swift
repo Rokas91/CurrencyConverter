@@ -21,14 +21,6 @@ class AccountSelectionTableViewController: EmbeddedTableViewController {
         return sections
     }
     
-    override init(style: UITableViewStyle) {
-        super.init(style: .grouped)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func getTable() -> AccountSelectionTableView {
         return tableView as! AccountSelectionTableView
     }

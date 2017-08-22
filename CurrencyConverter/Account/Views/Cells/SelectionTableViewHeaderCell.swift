@@ -29,6 +29,8 @@ class SelectionTableViewHeaderCell: BaseTableViewHeaderCell {
     }
 }
 
+// MARK: - Layout
+
 extension SelectionTableViewHeaderCell {
     override func render() {
         layoutTitleLabel()

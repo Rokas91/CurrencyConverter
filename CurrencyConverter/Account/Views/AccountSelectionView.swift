@@ -13,7 +13,6 @@ protocol AccountSelectionViewDelegate: BaseViewDelegate {
 }
 
 class AccountSelectionView: BaseView {
-    fileprivate let topMargin: CGFloat = 30
     fileprivate let bottomMargin: CGFloat = 20
     
     lazy var accountSelectionTableView: AccountSelectionTableView = {
@@ -65,7 +64,7 @@ extension AccountSelectionView {
     
     private func layoutBackgroundView() {
         addSubview(backgroundView)
-        let height = accountSelectionTableView.contentSize.height + topMargin + bottomMargin
+        let height = accountSelectionTableView.contentSize.height + bottomMargin
         
         backgroundView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -81,7 +80,7 @@ extension AccountSelectionView {
     private func layoutAccountSelectionTableView() {
         backgroundView.addSubview(accountSelectionTableView)
         
-        accountSelectionTableView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: topMargin).isActive = true
+        accountSelectionTableView.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
         accountSelectionTableView.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 20).isActive = true
         accountSelectionTableView.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -20).isActive = true
         accountSelectionTableView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -bottomMargin).isActive = true

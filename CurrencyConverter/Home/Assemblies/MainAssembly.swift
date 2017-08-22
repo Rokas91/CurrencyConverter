@@ -13,6 +13,7 @@ class MainAssembly: TyphoonAssembly {
     var userAssembly: UserAssembly!
     var walletAssembly: WalletAssembly!
     var accountAssembly: AccountAssembly!
+    var applicationAssembly: ApplicationAssembly!
     
     dynamic func mainViewController() -> AnyObject {
         return TyphoonDefinition.withClass(MainViewController.self) { definition in
@@ -21,6 +22,7 @@ class MainAssembly: TyphoonAssembly {
             definition?.injectProperty(#selector(self.accountAssembly.accountSelectionViewController))
             definition?.injectProperty(#selector(self.accountAssembly.upperCurrencySelectionViewController))
             definition?.injectProperty(#selector(self.accountAssembly.lowerCurrencySelectionViewController))
+            definition?.injectProperty(#selector(self.applicationAssembly.currencyManager))
             definition?.scope = TyphoonScope.prototype
             } as AnyObject
     }

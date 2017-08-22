@@ -76,7 +76,7 @@ class SelectionTableViewCell: BaseTableViewCell {
         flagImageView.setFlag(with: currencyBalance.currency)
         currencyLabel.text = currencyBalance.currency
         currencyDescriptionLabel.text = NSLocale.getCurrencyName(by: currencyBalance.currency)
-        amountLabel.text = "\(currencyBalance.atDisposal)"
+        amountLabel.text = String.formatTo2f(currencyBalance.atDisposal)
         amountSymbolLabel.text = NSLocale.getCurrencySymbol(by: currencyBalance.currency)
     }
 }

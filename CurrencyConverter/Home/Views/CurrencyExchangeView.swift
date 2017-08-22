@@ -71,7 +71,7 @@ class CurrencyExchangeView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupLayout()
+        layout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,16 +82,16 @@ class CurrencyExchangeView: UIView {
 // MARK: - Layout
 
 extension CurrencyExchangeView {
-    fileprivate func setupLayout() {
-        setupFlagImageView()
-        setupCurrencyLabel()
-        setupDownArrowImageView()
-        setupButton()
-        setupAmountTextField()
-        setupCurrencyExchangeLabel()
+    fileprivate func layout() {
+        layoutFlagImageView()
+        layoutCurrencyLabel()
+        layoutDownArrowImageView()
+        layoutButton()
+        layoutAmountTextField()
+        layoutCurrencyExchangeLabel()
     }
     
-    private func setupFlagImageView() {
+    private func layoutFlagImageView() {
         addSubview(flagImageView)
         
         flagImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -100,14 +100,14 @@ extension CurrencyExchangeView {
         flagImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
-    private func setupCurrencyLabel() {
+    private func layoutCurrencyLabel() {
         addSubview(currencyLabel)
         
         currencyLabel.leftAnchor.constraint(equalTo: flagImageView.rightAnchor, constant: 5).isActive = true
         currencyLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
-    private func setupDownArrowImageView() {
+    private func layoutDownArrowImageView() {
         addSubview(downArrowImageView)
         
         downArrowImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -116,7 +116,7 @@ extension CurrencyExchangeView {
         downArrowImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
-    private func setupButton() {
+    private func layoutButton() {
         addSubview(button)
         
         button.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -125,7 +125,7 @@ extension CurrencyExchangeView {
         button.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
-    private func setupAmountTextField() {
+    private func layoutAmountTextField() {
         addSubview(amountTextField)
         
         amountTextField.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -134,7 +134,7 @@ extension CurrencyExchangeView {
         amountTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
-    private func setupCurrencyExchangeLabel() {
+    private func layoutCurrencyExchangeLabel() {
         addSubview(currencyExchangeLabel)
         
         currencyExchangeLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor).isActive = true

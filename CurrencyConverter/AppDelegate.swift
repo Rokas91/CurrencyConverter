@@ -15,15 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var mainViewController: MainViewController!
-    var userManager: UserManager!
-    var realmDataFixture: RealmDataFixture!
     var applicationAssembly: ApplicationAssembly!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         applicationAssembly.makeDefault()
-        if userManager.user == nil {
-            realmDataFixture.loadData()
-        } 
+        NotificationCenter.default.post(name: Notification.Name(EVENT_APPLICATION_DID_FINISH_LAUNCHING), object: nil)
         setAppearance()
         
         window = UIWindow(frame: UIScreen.main.bounds)
