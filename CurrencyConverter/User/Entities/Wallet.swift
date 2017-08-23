@@ -17,13 +17,13 @@ class Wallet: Object {
         return "id"
     }
     
-    func getCurrencyBalance(by currency: String) -> CurrencyBalance? {
+    func getCurrencyBalance(by currency: String) -> CurrencyBalance {
         for currencyBalance in currencyBalances {
             if currencyBalance.currency == currency {
                 return currencyBalance
             }
         }
-        return nil
+        return createEmptyBalance(of: currency)
     }
     
     func createEmptyBalance(of currency: String) -> CurrencyBalance {

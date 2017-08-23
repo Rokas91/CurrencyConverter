@@ -17,13 +17,7 @@ class CurrencySelectionTableViewController: EmbeddedTableViewController {
         if let wallet = wallet {
             var currencyBalances = [CurrencyBalance]()
             currencies.forEach { currency in
-                var currencyBalance: CurrencyBalance?
-                if let balance = wallet.getCurrencyBalance(by: currency) {
-                    currencyBalance = balance
-                } else {
-                    currencyBalance = wallet.createEmptyBalance(of: currency)
-                }
-                currencyBalances.append(currencyBalance!)
+                currencyBalances.append(wallet.getCurrencyBalance(by: currency))
             }
             return currencyBalances.sorted { $0.atDisposal > $1.atDisposal }
         }

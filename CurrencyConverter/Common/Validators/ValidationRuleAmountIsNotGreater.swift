@@ -13,7 +13,7 @@ struct ValidationRuleAmountIsNotGreater: ValidationRule {
     typealias InputType = Money
     
     init() {
-        error = ValidationError("validation_amount_is_zero")
+        error = ValidationError(VALIDATION_AMOUNT_IS_GREATER)
     }
     
     func validate(input: Money?) -> Bool {

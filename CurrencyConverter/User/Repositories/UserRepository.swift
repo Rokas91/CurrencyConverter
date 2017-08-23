@@ -9,6 +9,7 @@
 import RealmSwift
 
 class UserRepository: EntityRepository {
+    
     func findFirst() -> User? {
         return realm.objects(User.self).first
     }

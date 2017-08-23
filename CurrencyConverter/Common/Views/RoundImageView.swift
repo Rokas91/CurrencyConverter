@@ -9,8 +9,7 @@
 import UIKit
 
 class RoundImageView: UIImageView {
-    
-    var isLayoutSubviewed = false
+    private var isLayoutSubviewed = false
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -38,4 +37,3 @@ class RoundImageView: UIImageView {
         image = UIImage(named: "flag_\(flagIdentifier)")
     }
 }
-

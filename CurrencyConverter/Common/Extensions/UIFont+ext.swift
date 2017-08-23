@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIFont {
-    
     class var avenir: UIFont {
         return UIFont(name: "Avenir-Book", size: 17)!
     }
@@ -17,5 +16,4 @@ extension UIFont {
     class func avenir(size: CGFloat) -> UIFont {
         return UIFont(name: "Avenir-Book", size: size)!
     }
-    
 }

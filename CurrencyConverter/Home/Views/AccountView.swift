@@ -19,8 +19,8 @@ class AccountView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
-        label.text = "Account name"
         label.textColor = .white
+        label.font = .avenir
         return label
     }()
     
@@ -29,6 +29,7 @@ class AccountView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         label.textColor = .white
+        label.font = .avenir
         return label
     }()
     
@@ -36,7 +37,6 @@ class AccountView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "forwardArrow")
-        
         return imageView
     }()
     

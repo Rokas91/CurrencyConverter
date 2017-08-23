@@ -9,9 +9,27 @@
 import UIKit
 
 class UpperCurrencyExchangeView: CurrencyExchangeView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        amountTextField.textColor = .yellow
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 class LowerCurrencyExchangeView: CurrencyExchangeView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        amountTextField.textColor = .red
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 protocol CurrencyExchangeViewDelegate: class {
@@ -33,6 +51,7 @@ class CurrencyExchangeView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         label.textColor = .white
+        label.font = .avenir
         return label
     }()
     
@@ -40,7 +59,6 @@ class CurrencyExchangeView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.text = "Currency exchange"
         label.font = UIFont.avenir(size: 15)
         label.textAlignment = .right
         return label
@@ -52,6 +70,7 @@ class CurrencyExchangeView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.keyboardType = .decimalPad
         textField.textAlignment = .right
+        textField.font = .avenir
         return textField
     }()
     

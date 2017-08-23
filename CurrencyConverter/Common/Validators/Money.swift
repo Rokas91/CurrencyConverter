@@ -23,7 +23,7 @@ struct Money {
     }
     
     func isZero() -> Bool {
-        return amount == 0
+        return amount.round(to: 2) == 0
     }
     
     func isFromAmountGreaterThanDisposal() -> Bool {

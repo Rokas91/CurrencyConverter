@@ -11,12 +11,14 @@ import RealmSwift
 
 class CurrencyExchangeManager: NSObject {
     private let currencyAPIClient: CurrencyAPIClient
+    private let toastManager: ToastManager
     private var realm: Realm! {
         return try! Realm()
     }
     
-    init (currencyAPIClient: CurrencyAPIClient) {
+    init (currencyAPIClient: CurrencyAPIClient, toastManager: ToastManager) {
         self.currencyAPIClient = currencyAPIClient
+        self.toastManager = toastManager
         super.init()
     }
     
@@ -53,28 +55,12 @@ class CurrencyExchangeManager: NSObject {
         switch converTion.validate() {
         case .valid:
             converTion.calculateAndCommit()
+            toastManager.showSuccessNotification()
             break
         case .invalid(let failures):
+            toastManager.showErrorNotification(with: (failures.first as! ValidationError).message)
             break
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

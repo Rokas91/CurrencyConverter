@@ -45,6 +45,7 @@ class SelectionTableViewCell: BaseTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         label.textColor = .black
+        label.font = .avenir
         return label
     }()
     
@@ -53,6 +54,7 @@ class SelectionTableViewCell: BaseTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         label.textColor = .black
+        label.font = .avenir
         return label
     }()
     

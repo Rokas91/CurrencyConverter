@@ -51,28 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setAppearance() {
-//        //UILabel
-//        UILabel.appearance().defaultFont = .avenir
-//        UILabel.appearance().defaultTextColor = .darkGray
-//        
-//        //UITextField
-//        UITextField.appearance().defaultFont = .avenir
-//        UITextField.appearance().defaultTextColor = .darkGray
-//        
-//        //UITextView
-//        UITextView.appearance().defaultFont = .avenir
-//        UITextView.appearance().defaultTextColor = .darkGray
-//        
-//        //UIButton
-//        UIButton.appearance().defaultFont = .avenir
-//        UIButton.appearance().defaultTitleColor = .white
-        
-        //UINavigationBar
-//        UINavigationBar.appearance().barTintColor = .customGreen
+        UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
-        
-        //UIBarButtonItem
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.avenir], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.avenir], for: .normal)
     }
 }
 

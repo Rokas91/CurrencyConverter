@@ -47,14 +47,14 @@ struct Convertion {
     
     func calculateAndCommit() {
         try! realm.write {
-            let fromCurrencyBalance = wallet.getCurrencyBalance(by: fromCurrency)!
-            let toCurrencyBalance = wallet.getCurrencyBalance(by: toCurrency)!
+            let fromCurrencyBalance = wallet.getCurrencyBalance(by: fromCurrency)
+            let toCurrencyBalance = wallet.getCurrencyBalance(by: toCurrency)
             fromCurrencyBalance.atDisposal = fromCurrencyBalance.atDisposal - fromAmount
             toCurrencyBalance.atDisposal = toCurrencyBalance.atDisposal + toAmount
         }
     }
     
     private func getAtDisposal() -> Double {
-        return wallet.getCurrencyBalance(by: fromCurrency)?.atDisposal ?? 0
+        return wallet.getCurrencyBalance(by: fromCurrency).atDisposal
     }
 }

@@ -9,6 +9,7 @@
 import Typhoon
 
 class WalletAssembly: TyphoonAssembly {
+    
     dynamic func walletManager() -> AnyObject {
         return TyphoonDefinition.withClass(WalletManager.self) { definition in
             definition?.useInitializer(#selector(WalletManager.init(walletRepository:)), parameters: { initializer in

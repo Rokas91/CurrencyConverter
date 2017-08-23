@@ -57,9 +57,16 @@ class ApplicationAssembly: TyphoonAssembly {
     
     dynamic func currencyExchangeManager() -> AnyObject {
         return TyphoonDefinition.withClass(CurrencyExchangeManager.self) { definition in
-            definition?.useInitializer(#selector(CurrencyExchangeManager.init(currencyAPIClient:)), parameters: { initializer in
+            definition?.useInitializer(#selector(CurrencyExchangeManager.init(currencyAPIClient:toastManager:)), parameters: { initializer in
                 initializer?.injectParameter(with: self.currencyAPIClient())
+                initializer?.injectParameter(with: self.toastManager())
             })
+            definition?.scope = TyphoonScope.singleton
+            } as AnyObject
+    }
+    
+    dynamic func toastManager() -> AnyObject {
+        return TyphoonDefinition.withClass(ToastManager.self) { definition in
             definition?.scope = TyphoonScope.singleton
             } as AnyObject
     }

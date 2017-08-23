@@ -43,5 +43,3 @@ extension UIViewController {
         navigationController?.view.backgroundColor = .clear
     }
 }
-
-
