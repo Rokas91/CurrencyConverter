@@ -43,3 +43,5 @@ extension UIViewController {
         navigationController?.view.backgroundColor = .clear
     }
 }
+
+extension UIViewController: Alerting {}

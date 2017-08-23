@@ -9,7 +9,6 @@
 import Typhoon
 
 class UserAssembly: TyphoonAssembly {
-    
     dynamic func userManager() -> AnyObject {
         return TyphoonDefinition.withClass(UserManager.self) { definition in
             definition?.useInitializer(#selector(UserManager.init(userRepository:)), parameters: { initializer in

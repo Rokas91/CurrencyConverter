@@ -22,6 +22,7 @@ class MainViewController: BaseViewController {
     fileprivate var wallet: Wallet!
     fileprivate var fromAmount: Double?
     fileprivate var toAmount: Double?
+    fileprivate var isUpperCurrencySelection: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,10 @@ class MainViewController: BaseViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
         navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         getView().upperCurrencyExchangeView.amountTextField.becomeFirstResponder()
     }
@@ -84,30 +89,36 @@ extension MainViewController {
     fileprivate dynamic func convertTapped() {
         let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
         let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
-        if let fromAmount = fromAmount {
-            currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
-                if let error = task.error {
-                    self.toastManager.showErrorNotification(with: ERROR_MESSAGE)
-                    print(error)
-                } else {
-                    let toAmount = task.result as! Double
-                    self.currencyExchangeManager.convert(wallet: self.wallet, fromAmmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
-                    self.layoutAccounView(wallet: self.wallet, balance: self.wallet.getCurrencyBalance(by: fromCurrency))
-                }
-                return nil
-            })
-        } else if let toAmount = toAmount {
-            currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
-                if let error = task.error {
-                    self.toastManager.showErrorNotification(with: ERROR_MESSAGE)
-                    print(error)
-                } else {
-                    let fromAmount = task.result as! Double
-                    self.currencyExchangeManager.convert(wallet: self.wallet, fromAmmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
-                    self.layoutAccounView(wallet: self.wallet, balance: self.wallet.getCurrencyBalance(by: fromCurrency))
-                }
-                return nil
-            })
+        if let isUpperCurrencySelection = isUpperCurrencySelection, isUpperCurrencySelection {
+            if let fromAmount = fromAmount {
+                currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        self.toastManager.showErrorNotification(with: ERROR_MESSAGE)
+                        print(error)
+                    } else {
+                        let toAmount = task.result as! Double
+                        self.currencyExchangeManager.convert(wallet: self.wallet, fromAmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency) {
+                            self.layoutAccounView(wallet: self.wallet, balance: self.wallet.getCurrencyBalance(by: fromCurrency))
+                        }
+                    }
+                    return nil
+                })
+            }
+        } else if let isUpperCurrencySelection = isUpperCurrencySelection, !isUpperCurrencySelection {
+            if let toAmount = toAmount {
+                currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        self.toastManager.showErrorNotification(with: ERROR_MESSAGE)
+                        print(error)
+                    } else {
+                        let fromAmount = task.result as! Double
+                        self.currencyExchangeManager.convert(wallet: self.wallet, fromAmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency) {
+                            self.layoutAccounView(wallet: self.wallet, balance: self.wallet.getCurrencyBalance(by: fromCurrency))
+                        }
+                    }
+                    return nil
+                })
+            }
         }
     }
 }
@@ -131,8 +142,8 @@ extension MainViewController: MainViewDelegate {
         let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
         let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
         if view.isKind(of: UpperCurrencyExchangeView.self) {
+            isUpperCurrencySelection = true
             fromAmount = amount
-            toAmount = nil
             if let fromAmount = fromAmount {
                 navigationItem.rightBarButtonItem?.isEnabled = true
                 currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
@@ -140,6 +151,7 @@ extension MainViewController: MainViewDelegate {
                         print(error)
                     } else {
                         let toAmount = task.result as! Double
+                        self.toAmount = toAmount
                         let text = String.formatTo2f(toAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
                         self.getView().lowerCurrencyExchangeView.amountTextField.text = text
                     }
@@ -150,8 +162,8 @@ extension MainViewController: MainViewDelegate {
                 getView().lowerCurrencyExchangeView.amountTextField.text = nil
             }
         } else {
+            isUpperCurrencySelection = false
             toAmount = amount
-            fromAmount = nil
             if let toAmount = toAmount {
                 navigationItem.rightBarButtonItem?.isEnabled = true
                 currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
@@ -159,6 +171,7 @@ extension MainViewController: MainViewDelegate {
                         print(error)
                     } else {
                         let fromAmount = task.result as! Double
+                        self.fromAmount = fromAmount
                         let text = String.formatTo2f(fromAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
                         self.getView().upperCurrencyExchangeView.amountTextField.text = text
                     }
@@ -213,6 +226,7 @@ extension MainViewController: CurrencySelectionViewControllerDelegate {
                         print(error)
                     } else {
                         let toAmount = task.result as! Double
+                        self.toAmount = toAmount
                         let text = String.formatTo2f(toAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
                         self.getView().lowerCurrencyExchangeView.amountTextField.text = text
                     }
@@ -259,6 +273,7 @@ extension MainViewController: CurrencySelectionViewControllerDelegate {
                         print(error)
                     } else {
                         let fromAmount = task.result as! Double
+                        self.fromAmount = fromAmount
                         let text = String.formatTo2f(fromAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
                         self.getView().upperCurrencyExchangeView.amountTextField.text = text
                     }
@@ -295,30 +310,5 @@ extension MainViewController: CurrencySelectionViewControllerDelegate {
         layoutCurrencyExchangeView()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

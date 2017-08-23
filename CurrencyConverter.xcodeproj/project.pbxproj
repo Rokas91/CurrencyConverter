@@ -28,6 +28,7 @@
 		D923452F1F4C61A600B910A3 /* Collection+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923452E1F4C61A600B910A3 /* Collection+ext.swift */; };
 		D94474C11F4734F600384DF5 /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C01F4734F600384DF5 /* UIViewController+ext.swift */; };
 		D94474CA1F474D9D00384DF5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94474C91F474D9D00384DF5 /* MainViewController.swift */; };
+		D974DA3E1F4E3307004CBDCF /* Alerting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D974DA3D1F4E3307004CBDCF /* Alerting.swift */; };
 		D98720BF1F497C0B00B4F2F1 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98720BE1F497C0B00B4F2F1 /* RoundImageView.swift */; };
 		D98720C31F497ED400B4F2F1 /* NSLocale+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98720C21F497ED400B4F2F1 /* NSLocale+ext.swift */; };
 		D98720C81F4991D300B4F2F1 /* AccountSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98720C71F4991D300B4F2F1 /* AccountSelectionView.swift */; };
@@ -98,6 +99,7 @@
 		D923452E1F4C61A600B910A3 /* Collection+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+ext.swift"; sourceTree = "<group>"; };
 		D94474C01F4734F600384DF5 /* UIViewController+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
 		D94474C91F474D9D00384DF5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		D974DA3D1F4E3307004CBDCF /* Alerting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerting.swift; sourceTree = "<group>"; };
 		D98720BE1F497C0B00B4F2F1 /* RoundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		D98720C21F497ED400B4F2F1 /* NSLocale+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLocale+ext.swift"; sourceTree = "<group>"; };
 		D98720C71F4991D300B4F2F1 /* AccountSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSelectionView.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				D91E95831F4849180061301A /* Repositories */,
 				D9E0E1121F4C8D7F008F4539 /* Entities */,
 				D92345251F4C4B3800B910A3 /* Listeners */,
+				D974DA3C1F4E32EC004CBDCF /* Protocols */,
 				D9EF370E1F478A95009E1D8C /* Controllers */,
 				D9EF370F1F478AA0009E1D8C /* Views */,
 				D94474BF1F4734DF00384DF5 /* Extensions */,
@@ -309,6 +312,14 @@
 				D9DAE3141F48F90600DAB5F0 /* AccountView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D974DA3C1F4E32EC004CBDCF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D974DA3D1F4E3307004CBDCF /* Alerting.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		D98720C61F49919400B4F2F1 /* Views */ = {
@@ -679,6 +690,7 @@
 				D9DEE7C21F4AFAE500D821F3 /* CurrencySelectionTableView.swift in Sources */,
 				D9EF37111F478AB2009E1D8C /* BaseView.swift in Sources */,
 				D91E95991F486E570061301A /* WalletAssembly.swift in Sources */,
+				D974DA3E1F4E3307004CBDCF /* Alerting.swift in Sources */,
 				D9D7B7691F4714260049499D /* AppDelegate.swift in Sources */,
 				D91E958F1F4854300061301A /* WalletRepository.swift in Sources */,
 				D9C45C931F49C4CB007843C8 /* SelectionTableViewCell.swift in Sources */,

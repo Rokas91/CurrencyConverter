@@ -26,7 +26,7 @@ class Wallet: Object {
         return createEmptyBalance(of: currency)
     }
     
-    func createEmptyBalance(of currency: String) -> CurrencyBalance {
+    private func createEmptyBalance(of currency: String) -> CurrencyBalance {
         let currencyBalance = CurrencyBalance()
         currencyBalance.setAtDisposal(amount: 0, currency: currency)
         return currencyBalance

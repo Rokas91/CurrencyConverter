@@ -50,6 +50,9 @@ struct Convertion {
             let fromCurrencyBalance = wallet.getCurrencyBalance(by: fromCurrency)
             let toCurrencyBalance = wallet.getCurrencyBalance(by: toCurrency)
             fromCurrencyBalance.atDisposal = fromCurrencyBalance.atDisposal - fromAmount
+            if toCurrencyBalance.atDisposal == 0 {
+                wallet.currencyBalances.append(toCurrencyBalance)
+            }
             toCurrencyBalance.atDisposal = toCurrencyBalance.atDisposal + toAmount
         }
     }

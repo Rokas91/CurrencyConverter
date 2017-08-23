@@ -50,12 +50,18 @@ class CurrencyExchangeManager: NSObject {
         })
     }
     
-    func convert(wallet: Wallet, fromAmmount: Double, fromCurrency: String, toAmount: Double, toCurrency: String) {
-        let converTion = Convertion(wallet: wallet, fromAmount: fromAmmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
+    func convert(wallet: Wallet, fromAmount: Double, fromCurrency: String, toAmount: Double, toCurrency: String, onSuccess: @escaping () -> ()) {
+        let converTion = Convertion(wallet: wallet, fromAmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
         switch converTion.validate() {
         case .valid:
-            converTion.calculateAndCommit()
-            toastManager.showSuccessNotification()
+            let confirmAction = UIAlertAction(title: CONFIRM_ACTION_TITLE, style: .default) { _ in
+                converTion.calculateAndCommit()
+                self.toastManager.showSuccessNotification()
+                onSuccess()
+            }
+            let cancelAction = UIAlertAction(title: CANCEL_ACTION_TITLE, style: .cancel) { alertController in }
+            let message = "Konvertuosite \(String.formatTo2f(fromAmount))\(NSLocale.getCurrencySymbol(by: fromCurrency)!) į \(String.formatTo2f(toAmount))\(NSLocale.getCurrencySymbol(by: toCurrency)!). Patvirtinate?"
+            UIViewController.topmost().createAlert(title: ALERT_TITLE, message: message, actions: confirmAction, cancelAction)
             break
         case .invalid(let failures):
             toastManager.showErrorNotification(with: (failures.first as! ValidationError).message)
