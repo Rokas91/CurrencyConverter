@@ -11,6 +11,7 @@ import UIKit
 protocol MainViewDelegate: BaseViewDelegate {
     func onAccountButtonTapped()
     func onCurrencyExchangeButtonTapped(view: UIView)
+    func onTextFieldDidChange(view: UIView, amount: Double?)
 }
 
 class MainView: BaseView {
@@ -98,6 +99,10 @@ extension MainView {
 extension MainView: CurrencyExchangeViewDelegate {
     func onCurrencyExchangeButtonTapped(view: UIView) {
         getDelegate()?.onCurrencyExchangeButtonTapped(view: view)
+    }
+    
+    func onTextFieldDidChange(view: UIView, amount: Double?) {
+        getDelegate()?.onTextFieldDidChange(view: view, amount: amount)
     }
 }
 

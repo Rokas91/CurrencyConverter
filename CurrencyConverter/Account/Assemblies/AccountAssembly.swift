@@ -47,7 +47,6 @@ class AccountAssembly: TyphoonAssembly {
     
     dynamic func currencySelectionTableViewController() -> AnyObject {
         return TyphoonDefinition.withClass(CurrencySelectionTableViewController.self) { definition in
-            definition?.injectProperty(#selector(self.walletAssembly.walletManager))
             definition?.scope = TyphoonScope.prototype
             } as AnyObject
     }

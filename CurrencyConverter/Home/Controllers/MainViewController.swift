@@ -8,6 +8,7 @@
 
 import UIKit
 import Typhoon
+import RealmSwift
 
 class MainViewController: BaseViewController {
     var userManager: UserManager!
@@ -16,7 +17,10 @@ class MainViewController: BaseViewController {
     var upperCurrencySelectionViewController: UpperCurrencySelectionViewController!
     var lowerCurrencySelectionViewController: LowerCurrencySelectionViewController!
     var currencyManager: CurrencyManager!
+    var currencyExchangeManager: CurrencyExchangeManager!
     fileprivate var wallet: Wallet!
+    fileprivate var fromAmount: Double?
+    fileprivate var toAmount: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +31,14 @@ class MainViewController: BaseViewController {
         upperCurrencySelectionViewController.delegate = self
         lowerCurrencySelectionViewController.delegate = self
         accountSelectionViewController.wallets = userManager.getWallets()
-        if let currencyBalance = walletManager.getCurrencyBalance(walletId: wallet.id, currency: walletManager.lastUsedCurrency) {
-            accountSelectionViewController.delegate?.onAccountSelected(wallet: wallet, balance: currencyBalance)
+        if let currencyBalance = wallet.getCurrencyBalance(by: walletManager.lastUsedCurrency) {
+            accountSelectionViewController.delegate?.onAccountSelected(wallet: wallet, balance: currencyBalance, isCurrencySelectionTriggered: true)
         }
-        
         upperCurrencySelectionViewController.currencies = currencyManager.getCurrencies()
         lowerCurrencySelectionViewController.currencies = currencyManager.getCurrencies().filter { $0 != walletManager.lastUsedCurrency }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Konvertuoti", style: .plain, target: self, action: #selector(convertTapped))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+//        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     override func getView() -> MainView {
@@ -77,7 +80,31 @@ class MainViewController: BaseViewController {
 
 extension MainViewController {
     fileprivate dynamic func convertTapped() {
-        
+        let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
+        let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
+        if let fromAmount = fromAmount {
+            currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+                if let error = task.error {
+                    print(error)
+                } else {
+                    let toAmount = task.result as! Double
+                    self.currencyExchangeManager.convert(wallet: self.wallet, fromAmmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
+                    self.layoutAccounView(wallet: self.wallet, balance: self.wallet.getCurrencyBalance(by: fromCurrency)!)
+                }
+                return nil
+            })
+        } else if let toAmount = toAmount {
+            currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
+                if let error = task.error {
+                    print(error)
+                } else {
+                    let fromAmount = task.result as! Double
+                    self.currencyExchangeManager.convert(wallet: self.wallet, fromAmmount: fromAmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
+                    self.layoutAccounView(wallet: self.wallet, balance: self.wallet.getCurrencyBalance(by: fromCurrency)!)
+                }
+                return nil
+            })
+        }
     }
 }
 
@@ -95,12 +122,52 @@ extension MainViewController: MainViewDelegate {
             presentViewControllerInNavigationViewController(lowerCurrencySelectionViewController)
         }
     }
+    
+    func onTextFieldDidChange(view: UIView, amount: Double?) {
+        let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
+        let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
+        if view.isKind(of: UpperCurrencyExchangeView.self) {
+            fromAmount = amount
+            toAmount = nil
+            if let fromAmount = fromAmount {
+                currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        print(error)
+                    } else {
+                        let toAmount = task.result as! Double
+                        let text = String.formatTo2f(toAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
+                        self.getView().lowerCurrencyExchangeView.amountTextField.text = text
+                    }
+                    return nil
+                })
+            } else {
+                getView().lowerCurrencyExchangeView.amountTextField.text = nil
+            }
+        } else {
+            toAmount = amount
+            fromAmount = nil
+            if let toAmount = toAmount {
+                currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        print(error)
+                    } else {
+                        let fromAmount = task.result as! Double
+                        let text = String.formatTo2f(fromAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
+                        self.getView().upperCurrencyExchangeView.amountTextField.text = text
+                    }
+                    return nil
+                })
+            } else {
+                getView().upperCurrencyExchangeView.amountTextField.text = nil
+            }
+        }
+    }
 }
 
 // MARK: - AccountSelectionViewControllerDelegate
 
 extension MainViewController: AccountSelectionViewControllerDelegate {
-    func onAccountSelected(wallet: Wallet, balance: CurrencyBalance) {
+    func onAccountSelected(wallet: Wallet, balance: CurrencyBalance, isCurrencySelectionTriggered: Bool) {
         self.wallet = wallet
         walletManager.lastUsedWallet = wallet
         walletManager.lastUsedCurrency = balance.currency
@@ -112,17 +179,110 @@ extension MainViewController: AccountSelectionViewControllerDelegate {
         configureCurrencySelection(balance: balance)
         layoutAccounView(wallet: wallet, balance: balance)
         layoutCurrencyExchangeView()
+        if isCurrencySelectionTriggered {
+            upperCurrencySelectionViewController.delegate?.onCurrencySelected(upperCurrencySelectionViewController, balance: balance, isAccountSelectionTriggered: !isCurrencySelectionTriggered)
+        }
     }
 }
 
 // MARK: - CurrencySelectionViewControllerDelegate
 
 extension MainViewController: CurrencySelectionViewControllerDelegate {
-    func onCurrencySelected(_ controller: CurrencySelectionViewController, balance: CurrencyBalance) {
+    func onCurrencySelected(_ controller: CurrencySelectionViewController, balance: CurrencyBalance, isAccountSelectionTriggered: Bool) {
         if upperCurrencySelectionViewController == controller {
-            accountSelectionViewController.delegate?.onAccountSelected(wallet: wallet, balance: balance)
+            if isAccountSelectionTriggered {
+                accountSelectionViewController.delegate?.onAccountSelected(wallet: wallet, balance: balance, isCurrencySelectionTriggered: !isAccountSelectionTriggered)
+            }
+            
+            if let text = getView().upperCurrencyExchangeView.amountTextField.text, !text.isEmpty {
+                let formatter = NumberFormatter()
+                let fromAmount = Double(formatter.number(from: text)!)
+                let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
+                let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
+                
+                currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        print(error)
+                    } else {
+                        let toAmount = task.result as! Double
+                        let text = String.formatTo2f(toAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
+                        self.getView().lowerCurrencyExchangeView.amountTextField.text = text
+                    }
+                    return nil
+                })
+            }
+
+            currencyExchangeManager.getToAmount(fromAmount: 1, fromCurrency: balance.currency, toCurrency: lowerCurrencySelectionViewController.currentCurrency!).continue({ task -> Any? in
+                if let error = task.error {
+                    print(error)
+                } else {
+                    let toAmount = task.result as! Double
+                    let fromCurrencySymbol = NSLocale.getCurrencySymbol(by: balance.currency)!
+                    let toCurrencySymbol = NSLocale.getCurrencySymbol(by: self.lowerCurrencySelectionViewController.currentCurrency!)!
+                    let text = "1" + fromCurrencySymbol + " = \(toAmount)" + toCurrencySymbol
+                    self.getView().upperCurrencyExchangeView.currencyExchangeLabel.text = text
+                }
+                return nil
+            })
+            
+            currencyExchangeManager.getToAmount(fromAmount: 1, fromCurrency: lowerCurrencySelectionViewController.currentCurrency!, toCurrency: balance.currency).continue({ task -> Any? in
+                if let error = task.error {
+                    print(error)
+                } else {
+                    let toAmount = task.result as! Double
+                    let fromCurrencySymbol = NSLocale.getCurrencySymbol(by: self.lowerCurrencySelectionViewController.currentCurrency!)!
+                    let toCurrencySymbol = NSLocale.getCurrencySymbol(by: balance.currency)!
+                    let text = "1" + fromCurrencySymbol + " = \(toAmount)" + toCurrencySymbol
+                    self.getView().lowerCurrencyExchangeView.currencyExchangeLabel.text = text
+                }
+                return nil
+            })
         } else {
             lowerCurrencySelectionViewController.currentCurrency = balance.currency
+            
+            if let text = getView().lowerCurrencyExchangeView.amountTextField.text, !text.isEmpty {
+                let formatter = NumberFormatter()
+                let toAmount = Double(formatter.number(from: text)!)
+                let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
+                let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
+                
+                currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        print(error)
+                    } else {
+                        let fromAmount = task.result as! Double
+                        let text = String.formatTo2f(fromAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
+                        self.getView().upperCurrencyExchangeView.amountTextField.text = text
+                    }
+                    return nil
+                })
+            }
+            
+            currencyExchangeManager.getToAmount(fromAmount: 1, fromCurrency: balance.currency, toCurrency: upperCurrencySelectionViewController.currentCurrency!).continue({ task -> Any? in
+                if let error = task.error {
+                    print(error)
+                } else {
+                    let toAmount = task.result as! Double
+                    let fromCurrencySymbol = NSLocale.getCurrencySymbol(by: balance.currency)!
+                    let toCurrencySymbol = NSLocale.getCurrencySymbol(by: self.lowerCurrencySelectionViewController.currentCurrency!)!
+                    let text = "1" + fromCurrencySymbol + " = \(toAmount)" + toCurrencySymbol
+                    self.getView().lowerCurrencyExchangeView.currencyExchangeLabel.text = text
+                }
+                return nil
+            })
+            
+            currencyExchangeManager.getToAmount(fromAmount: 1, fromCurrency: upperCurrencySelectionViewController.currentCurrency!, toCurrency: balance.currency).continue({ task -> Any? in
+                if let error = task.error {
+                    print(error)
+                } else {
+                    let toAmount = task.result as! Double
+                    let fromCurrencySymbol = NSLocale.getCurrencySymbol(by: self.upperCurrencySelectionViewController.currentCurrency!)!
+                    let toCurrencySymbol = NSLocale.getCurrencySymbol(by: balance.currency)!
+                    let text = "1" + fromCurrencySymbol + " = \(toAmount)" + toCurrencySymbol
+                    self.getView().upperCurrencyExchangeView.currencyExchangeLabel.text = text
+                }
+                return nil
+            })
         }
         layoutCurrencyExchangeView()
     }

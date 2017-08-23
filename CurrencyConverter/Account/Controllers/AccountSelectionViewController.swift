@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AccountSelectionViewControllerDelegate: class {
-    func onAccountSelected(wallet: Wallet, balance: CurrencyBalance)
+    func onAccountSelected(wallet: Wallet, balance: CurrencyBalance, isCurrencySelectionTriggered: Bool)
 }
 
 class AccountSelectionViewController: BaseViewController {
@@ -65,7 +65,7 @@ class AccountSelectionViewController: BaseViewController {
 
 extension AccountSelectionViewController: AccountSelectionViewDelegate {
     func onAccountSelected(wallet: Wallet, balance: CurrencyBalance) {
-        delegate?.onAccountSelected(wallet: wallet, balance: balance)
+        delegate?.onAccountSelected(wallet: wallet, balance: balance, isCurrencySelectionTriggered: true)
         dismiss(animated: true)
     }
 }

@@ -16,6 +16,7 @@ class LowerCurrencyExchangeView: CurrencyExchangeView {
 
 protocol CurrencyExchangeViewDelegate: class {
     func onCurrencyExchangeButtonTapped(view: UIView)
+    func onTextFieldDidChange(view: UIView, amount: Double?)
 }
 
 class CurrencyExchangeView: UIView {
@@ -35,6 +36,25 @@ class CurrencyExchangeView: UIView {
         return label
     }()
     
+    lazy var currencyExchangeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.text = "Currency exchange"
+        label.font = UIFont.avenir(size: 15)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var amountTextField: UITextField = {
+        let textField = UITextField()
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.keyboardType = .decimalPad
+        textField.textAlignment = .right
+        return textField
+    }()
+    
     fileprivate lazy var downArrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "downArrow")
@@ -48,26 +68,7 @@ class CurrencyExchangeView: UIView {
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
-    
-    fileprivate lazy var amountTextField: UITextField = {
-        let textField = UITextField()
-//        textField.delegate = self
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.keyboardType = .decimalPad
-        textField.textAlignment = .right
-        return textField
-    }()
-    
-    fileprivate lazy var currencyExchangeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.text = "Currency exchange"
-        label.font = UIFont.avenir(size: 15)
-        label.textAlignment = .right
-        return label
-    }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -76,6 +77,17 @@ class CurrencyExchangeView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    private dynamic func textFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text, !text.isEmpty {
+            let formatter = NumberFormatter()
+            if let number = formatter.number(from: text) {
+                delegate?.onTextFieldDidChange(view: self, amount: Double(number))
+            }
+        } else {
+            delegate?.onTextFieldDidChange(view: self, amount: nil)
+        }
     }
 }
 

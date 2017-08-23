@@ -9,7 +9,6 @@
 import UIKit
 
 class CurrencySelectionTableViewController: EmbeddedTableViewController {
-    var walletManager: WalletManager!
     var wallet: Wallet?
     var currentCurrency: String?
     var currencies = [String]() 
@@ -19,10 +18,10 @@ class CurrencySelectionTableViewController: EmbeddedTableViewController {
             var currencyBalances = [CurrencyBalance]()
             currencies.forEach { currency in
                 var currencyBalance: CurrencyBalance?
-                if let balance = walletManager.getCurrencyBalance(walletId: wallet.id, currency: currency) {
+                if let balance = wallet.getCurrencyBalance(by: currency) {
                     currencyBalance = balance
                 } else {
-                    currencyBalance = walletManager.createEmptyBalance(of: currency)
+                    currencyBalance = wallet.createEmptyBalance(of: currency)
                 }
                 currencyBalances.append(currencyBalance!)
             }

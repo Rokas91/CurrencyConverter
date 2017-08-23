@@ -7,38 +7,74 @@
 //
 
 import Bolts
+import RealmSwift
 
 class CurrencyExchangeManager: NSObject {
+    private let currencyAPIClient: CurrencyAPIClient
+    private var realm: Realm! {
+        return try! Realm()
+    }
     
-    var currencyAPIClient: CurrencyAPIClient!
+    init (currencyAPIClient: CurrencyAPIClient) {
+        self.currencyAPIClient = currencyAPIClient
+        super.init()
+    }
     
-    func convert(wallet: Wallet, fromAmmount: Double, fromCurrency: String, toAmount: Double, toCurrency: String) {
-//        currencyExchangeAPIClient.fetchCurrencyRates(baseCurrency: fromCurrency).continueWith { task in
-//            if task.error == nil {
-//                let beneficiary = PayseraTransferBeneficiary()
-//                beneficiary.accountNumber = (task.result as! String)
-//                let transfer = PayseraTransfer(wallet: wallet, beneficiary: beneficiary, amount: amount)
-//                transfer.details = "-"
-//                
-//                switch transfer.validate() {
-//                case .valid:
-//                    self.makePayseraTransfer(transfer)
-//                case .invalid(let failures):
-//                    self.toastManager.showErrorNotification(withMessage: (failures.first as! ValidationError).message)
-//                    self.getView().slideConfirmationView.reset()
-//                }
-//            }
-//            return nil
-//        }
-        
-        currencyAPIClient.fetchCurrencyRates(baseCurrency: fromCurrency).continue({ task -> Any? in
-            if task.error == nil {
-                let rates = task.result as! Dictionary<String, String>
+    func getToAmount(fromAmount: Double, fromCurrency: String, toCurrency: String) -> BFTask<AnyObject> {
+        return currencyAPIClient.fetchCurrencyRate(fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+            let taskCompletionSource = BFTaskCompletionSource<AnyObject>()
+            if let error = task.error {
+                taskCompletionSource.setError(error)
             } else {
-                
+                let rate = task.result as! Double
+                let toAmount = fromAmount * rate
+                taskCompletionSource.setResult(toAmount as AnyObject)
             }
-            return nil
+            return taskCompletionSource.task
         })
     }
     
+    func getFromAmount(toAmount: Double, toCurrency: String, fromCurrency: String) -> BFTask<AnyObject> {
+        return currencyAPIClient.fetchCurrencyRate(fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+            let taskCompletionSource = BFTaskCompletionSource<AnyObject>()
+            if let error = task.error {
+                taskCompletionSource.setError(error)
+            } else {
+                let rate = task.result as! Double
+                let fromAmmount = toAmount / rate
+                taskCompletionSource.setResult(fromAmmount as AnyObject)
+            }
+            return taskCompletionSource.task
+        })
+    }
+    
+    func convert(wallet: Wallet, fromAmmount: Double, fromCurrency: String, toAmount: Double, toCurrency: String) {
+        let converTion = Convertion(wallet: wallet, fromAmount: fromAmmount, fromCurrency: fromCurrency, toAmount: toAmount, toCurrency: toCurrency)
+        switch converTion.validate() {
+        case .valid:
+            converTion.calculateAndCommit()
+            break
+        case .invalid(let failures):
+            break
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

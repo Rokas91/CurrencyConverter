@@ -23,6 +23,7 @@ class MainAssembly: TyphoonAssembly {
             definition?.injectProperty(#selector(self.accountAssembly.upperCurrencySelectionViewController))
             definition?.injectProperty(#selector(self.accountAssembly.lowerCurrencySelectionViewController))
             definition?.injectProperty(#selector(self.applicationAssembly.currencyManager))
+            definition?.injectProperty(#selector(self.applicationAssembly.currencyExchangeManager))
             definition?.scope = TyphoonScope.prototype
             } as AnyObject
     }

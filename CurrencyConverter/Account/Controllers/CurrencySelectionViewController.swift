@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CurrencySelectionViewControllerDelegate: class {
-    func onCurrencySelected(_ controller: CurrencySelectionViewController, balance: CurrencyBalance)
+    func onCurrencySelected(_ controller: CurrencySelectionViewController, balance: CurrencyBalance, isAccountSelectionTriggered: Bool)
 }
 
 class CurrencySelectionViewController: BaseViewController {
@@ -66,7 +66,7 @@ class CurrencySelectionViewController: BaseViewController {
 
 extension CurrencySelectionViewController: CurrencySelectionViewDelegate {
     func onCurrencySelected(balance: CurrencyBalance) {
-        delegate?.onCurrencySelected(self, balance: balance)
+        delegate?.onCurrencySelected(self, balance: balance, isAccountSelectionTriggered: true)
         dismiss(animated: true)
     }
 }

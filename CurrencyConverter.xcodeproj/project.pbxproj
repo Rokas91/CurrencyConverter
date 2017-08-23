@@ -63,6 +63,11 @@
 		D9DEE7C21F4AFAE500D821F3 /* CurrencySelectionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEE7C11F4AFAE500D821F3 /* CurrencySelectionTableView.swift */; };
 		D9DEE7C41F4B059B00D821F3 /* UIView+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEE7C31F4B059A00D821F3 /* UIView+ext.swift */; };
 		D9E0E1111F4C8175008F4539 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E0E1101F4C8175008F4539 /* String+ext.swift */; };
+		D9E0E1141F4C8E69008F4539 /* Convertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E0E1131F4C8E69008F4539 /* Convertion.swift */; };
+		D9E0E1191F4C9119008F4539 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E0E1181F4C9119008F4539 /* Money.swift */; };
+		D9E0E11B1F4C913D008F4539 /* ValidationRuleAmountIsNotZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E0E11A1F4C913D008F4539 /* ValidationRuleAmountIsNotZero.swift */; };
+		D9E0E11D1F4C91F6008F4539 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E0E11C1F4C91F6008F4539 /* ValidationError.swift */; };
+		D9E0E11F1F4C96CB008F4539 /* ValidationRuleAmountIsNotGreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E0E11E1F4C96CB008F4539 /* ValidationRuleAmountIsNotGreater.swift */; };
 		D9EF37111F478AB2009E1D8C /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37101F478AB2009E1D8C /* BaseView.swift */; };
 		D9EF37131F478BE0009E1D8C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37121F478BE0009E1D8C /* BaseViewController.swift */; };
 		D9EF37151F478D3B009E1D8C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF37141F478D3B009E1D8C /* MainView.swift */; };
@@ -129,6 +134,11 @@
 		D9DEE7C11F4AFAE500D821F3 /* CurrencySelectionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySelectionTableView.swift; sourceTree = "<group>"; };
 		D9DEE7C31F4B059A00D821F3 /* UIView+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ext.swift"; sourceTree = "<group>"; };
 		D9E0E1101F4C8175008F4539 /* String+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
+		D9E0E1131F4C8E69008F4539 /* Convertion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convertion.swift; sourceTree = "<group>"; };
+		D9E0E1181F4C9119008F4539 /* Money.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		D9E0E11A1F4C913D008F4539 /* ValidationRuleAmountIsNotZero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationRuleAmountIsNotZero.swift; sourceTree = "<group>"; };
+		D9E0E11C1F4C91F6008F4539 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
+		D9E0E11E1F4C96CB008F4539 /* ValidationRuleAmountIsNotGreater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationRuleAmountIsNotGreater.swift; sourceTree = "<group>"; };
 		D9EF37101F478AB2009E1D8C /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		D9EF37121F478BE0009E1D8C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D9EF37141F478D3B009E1D8C /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -231,10 +241,12 @@
 				D9CC5B191F4BB981000F72E9 /* API */,
 				D91E95921F48596D0061301A /* Services */,
 				D91E95831F4849180061301A /* Repositories */,
+				D9E0E1121F4C8D7F008F4539 /* Entities */,
 				D92345251F4C4B3800B910A3 /* Listeners */,
 				D9EF370E1F478A95009E1D8C /* Controllers */,
 				D9EF370F1F478AA0009E1D8C /* Views */,
 				D94474BF1F4734DF00384DF5 /* Extensions */,
+				D9E0E1171F4C90F2008F4539 /* Validators */,
 				D92345201F4C345000B910A3 /* Resources */,
 			);
 			path = Common;
@@ -426,6 +438,25 @@
 			path = CurrencyConverter;
 			sourceTree = "<group>";
 		};
+		D9E0E1121F4C8D7F008F4539 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				D9E0E1131F4C8E69008F4539 /* Convertion.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		D9E0E1171F4C90F2008F4539 /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+				D9E0E1181F4C9119008F4539 /* Money.swift */,
+				D9E0E11A1F4C913D008F4539 /* ValidationRuleAmountIsNotZero.swift */,
+				D9E0E11C1F4C91F6008F4539 /* ValidationError.swift */,
+				D9E0E11E1F4C96CB008F4539 /* ValidationRuleAmountIsNotGreater.swift */,
+			);
+			path = Validators;
+			sourceTree = "<group>";
+		};
 		D9EF370E1F478A95009E1D8C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -614,6 +645,7 @@
 				D9D408831F4B677E0077087E /* UpperCurrencySelectionViewController.swift in Sources */,
 				D9E0E1111F4C8175008F4539 /* String+ext.swift in Sources */,
 				D98720CA1F49939700B4F2F1 /* EmbeddedTableViewController.swift in Sources */,
+				D9E0E1141F4C8E69008F4539 /* Convertion.swift in Sources */,
 				D9AAD2B11F475486006809BB /* MainAssembly.swift in Sources */,
 				D9C45C981F49C6A5007843C8 /* BaseTableViewCell.swift in Sources */,
 				D98720C31F497ED400B4F2F1 /* NSLocale+ext.swift in Sources */,
@@ -626,14 +658,17 @@
 				D9DAE3131F48EB3C00DAB5F0 /* CurrencyExchangeView.swift in Sources */,
 				D9EF37131F478BE0009E1D8C /* BaseViewController.swift in Sources */,
 				D9CC5B1B1F4BB9B7000F72E9 /* CurrencyAPIClient.swift in Sources */,
+				D9E0E11B1F4C913D008F4539 /* ValidationRuleAmountIsNotZero.swift in Sources */,
 				D98720CE1F49961B00B4F2F1 /* AccountSelectionTableView.swift in Sources */,
 				D92345221F4C347500B910A3 /* Constants.swift in Sources */,
 				D98720D31F4999F400B4F2F1 /* AccountSection.swift in Sources */,
 				D9AAD2BA1F4755FD006809BB /* AccountAssembly.swift in Sources */,
 				D98720C81F4991D300B4F2F1 /* AccountSelectionView.swift in Sources */,
+				D9E0E11F1F4C96CB008F4539 /* ValidationRuleAmountIsNotGreater.swift in Sources */,
 				D91004841F4908B5005E27D7 /* UIFont+ext.swift in Sources */,
 				D9EF37151F478D3B009E1D8C /* MainView.swift in Sources */,
 				D9DEE7C41F4B059B00D821F3 /* UIView+ext.swift in Sources */,
+				D9E0E11D1F4C91F6008F4539 /* ValidationError.swift in Sources */,
 				D9C45C951F49C561007843C8 /* SelectionTableViewHeaderCell.swift in Sources */,
 				D9B7CA6D1F4831930055EE8B /* User.swift in Sources */,
 				D9DEE7C01F4AFAB700D821F3 /* CurrencySelectionView.swift in Sources */,
@@ -649,6 +684,7 @@
 				D9D408871F4B67E10077087E /* UpperCurrencySelectionView.swift in Sources */,
 				D98720D01F49980800B4F2F1 /* BaseTableView.swift in Sources */,
 				D91E958B1F484A260061301A /* UserRepository.swift in Sources */,
+				D9E0E1191F4C9119008F4539 /* Money.swift in Sources */,
 				D9C45C9A1F49C770007843C8 /* BaseTableViewHeaderCell.swift in Sources */,
 				D91E958D1F484B630061301A /* WalletManager.swift in Sources */,
 				D92345241F4C4AA900B910A3 /* Events.swift in Sources */,

@@ -25,7 +25,7 @@ class CurrencyAPIClient: NSObject {
             .responseJSON { response in
                 switch response.result {
                 case .success:
-                    let json = response.result.value as! Dictionary<String, Any>
+                    let json = response.result.value as! Dictionary<String, AnyObject>
                     taskCompletionSource.setResult(json["rates"] as AnyObject)
                 case .failure(let error):
                     taskCompletionSource.setError(error)
@@ -34,13 +34,27 @@ class CurrencyAPIClient: NSObject {
         return taskCompletionSource.task
     }
     
+    func fetchCurrencyRate(fromCurrency: String, toCurrency: String) -> BFTask<AnyObject> {
+        return fetchCurrencyRates(baseCurrency: fromCurrency).continue({ task -> Any? in
+            let taskCompletionSource = BFTaskCompletionSource<AnyObject>()
+            if let error = task.error {
+                taskCompletionSource.setError(error)
+            } else {
+                let rates = task.result as! Dictionary<String, AnyObject>
+                let rate = rates[toCurrency] as! Double
+                taskCompletionSource.setResult(rate as AnyObject)
+            }
+            return taskCompletionSource.task
+        })
+    }
+    
     func getAvailableCurrencies() -> BFTask<AnyObject> {
         return fetchCurrencyRates(baseCurrency: "EUR").continue({ task -> Any? in
             let taskCompletionSource = BFTaskCompletionSource<AnyObject>()
             if let error = task.error {
                 taskCompletionSource.setError(error)
             } else {
-                let rates = task.result as! Dictionary<String, Any>
+                let rates = task.result as! Dictionary<String, AnyObject>
                 var currencies = Array(rates.keys)
                 currencies.append("EUR")
                 taskCompletionSource.setResult(currencies as AnyObject)
