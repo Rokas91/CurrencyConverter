@@ -22,7 +22,7 @@ class MainViewController: BaseViewController {
     fileprivate var wallet: Wallet!
     fileprivate var fromAmount: Double?
     fileprivate var toAmount: Double?
-    fileprivate var isUpperCurrencySelection: Bool?
+    fileprivate var isUpperTextFieldTriggered: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,15 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getView().upperCurrencyExchangeView.amountTextField.becomeFirstResponder()
+        if let isUpperTextFieldTriggered = isUpperTextFieldTriggered {
+            if isUpperTextFieldTriggered {
+                getView().upperCurrencyExchangeView.amountTextField.becomeFirstResponder()
+            } else {
+                getView().lowerCurrencyExchangeView.amountTextField.becomeFirstResponder()
+            }
+        } else {
+            getView().upperCurrencyExchangeView.amountTextField.becomeFirstResponder()
+        }
     }
     
     override func getView() -> MainView {
@@ -63,7 +71,9 @@ class MainViewController: BaseViewController {
         if lowerCurrencySelectionViewController.currentCurrency == upperCurrencySelectionViewController.currentCurrency {
             lowerCurrencySelectionViewController.currentCurrency = oldCurrentCurrency
         } else {
-            lowerCurrencySelectionViewController.currentCurrency = wallet.currencyBalances.sorted { $0.atDisposal > $1.atDisposal }.filter { $0.currency != balance.currency }.first?.currency
+            if lowerCurrencySelectionViewController.currentCurrency == nil {
+                lowerCurrencySelectionViewController.currentCurrency = wallet.currencyBalances.sorted { $0.atDisposal > $1.atDisposal }.filter { $0.currency != balance.currency }.first?.currency
+            }
         }
         
         lowerCurrencySelectionViewController.currencies = currencyManager.getCurrencies().filter { $0 != upperCurrencySelectionViewController.currentCurrency }
@@ -80,6 +90,48 @@ class MainViewController: BaseViewController {
         getView().lowerCurrencyExchangeView.flagImageView.setFlag(with: lowerCurrencySelectionViewController.currentCurrency!)
         getView().lowerCurrencyExchangeView.currencyLabel.text = lowerCurrencySelectionViewController.currentCurrency
     }
+    
+    fileprivate func handleAmountTextField() {
+        if let isUpperTextFieldTriggered = isUpperTextFieldTriggered, isUpperTextFieldTriggered {
+            if let text = getView().upperCurrencyExchangeView.amountTextField.text, !text.isEmpty {
+                let formatter = NumberFormatter()
+                let fromAmount = Double(formatter.number(from: text)!)
+                let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
+                let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
+                
+                currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        print(error)
+                    } else {
+                        let toAmount = task.result as! Double
+                        self.toAmount = toAmount
+                        let text = String.formatTo2f(toAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
+                        self.getView().lowerCurrencyExchangeView.amountTextField.text = text
+                    }
+                    return nil
+                })
+            }
+        } else if let isUpperCurrencySelection = isUpperTextFieldTriggered, !isUpperCurrencySelection {
+            if let text = getView().lowerCurrencyExchangeView.amountTextField.text, !text.isEmpty {
+                let formatter = NumberFormatter()
+                let toAmount = Double(formatter.number(from: text)!)
+                let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
+                let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
+                
+                currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
+                    if let error = task.error {
+                        print(error)
+                    } else {
+                        let fromAmount = task.result as! Double
+                        self.fromAmount = fromAmount
+                        let text = String.formatTo2f(fromAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
+                        self.getView().upperCurrencyExchangeView.amountTextField.text = text
+                    }
+                    return nil
+                })
+            }
+        }
+    }
 }
 
 
@@ -89,7 +141,7 @@ extension MainViewController {
     fileprivate dynamic func convertTapped() {
         let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
         let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
-        if let isUpperCurrencySelection = isUpperCurrencySelection, isUpperCurrencySelection {
+        if let isUpperCurrencySelection = isUpperTextFieldTriggered, isUpperCurrencySelection {
             if let fromAmount = fromAmount {
                 currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
                     if let error = task.error {
@@ -104,7 +156,7 @@ extension MainViewController {
                     return nil
                 })
             }
-        } else if let isUpperCurrencySelection = isUpperCurrencySelection, !isUpperCurrencySelection {
+        } else if let isUpperCurrencySelection = isUpperTextFieldTriggered, !isUpperCurrencySelection {
             if let toAmount = toAmount {
                 currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
                     if let error = task.error {
@@ -142,7 +194,6 @@ extension MainViewController: MainViewDelegate {
         let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
         let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
         if view.isKind(of: UpperCurrencyExchangeView.self) {
-            isUpperCurrencySelection = true
             fromAmount = amount
             if let fromAmount = fromAmount {
                 navigationItem.rightBarButtonItem?.isEnabled = true
@@ -162,7 +213,6 @@ extension MainViewController: MainViewDelegate {
                 getView().lowerCurrencyExchangeView.amountTextField.text = nil
             }
         } else {
-            isUpperCurrencySelection = false
             toAmount = amount
             if let toAmount = toAmount {
                 navigationItem.rightBarButtonItem?.isEnabled = true
@@ -181,6 +231,14 @@ extension MainViewController: MainViewDelegate {
                 navigationItem.rightBarButtonItem?.isEnabled = false
                 getView().upperCurrencyExchangeView.amountTextField.text = nil
             }
+        }
+    }
+    
+    func onTextFieldDidBeginEditing(view: UIView) {
+        if view.isKind(of: UpperCurrencyExchangeView.self) {
+            isUpperTextFieldTriggered = true
+        } else {
+            isUpperTextFieldTriggered = false
         }
     }
 }
@@ -215,25 +273,6 @@ extension MainViewController: CurrencySelectionViewControllerDelegate {
                 accountSelectionViewController.delegate?.onAccountSelected(wallet: wallet, balance: balance, isCurrencySelectionTriggered: !isAccountSelectionTriggered)
             }
             
-            if let text = getView().upperCurrencyExchangeView.amountTextField.text, !text.isEmpty {
-                let formatter = NumberFormatter()
-                let fromAmount = Double(formatter.number(from: text)!)
-                let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
-                let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
-                
-                currencyExchangeManager.getToAmount(fromAmount: fromAmount, fromCurrency: fromCurrency, toCurrency: toCurrency).continue({ task -> Any? in
-                    if let error = task.error {
-                        print(error)
-                    } else {
-                        let toAmount = task.result as! Double
-                        self.toAmount = toAmount
-                        let text = String.formatTo2f(toAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
-                        self.getView().lowerCurrencyExchangeView.amountTextField.text = text
-                    }
-                    return nil
-                })
-            }
-
             currencyExchangeManager.getToAmount(fromAmount: 1, fromCurrency: balance.currency, toCurrency: lowerCurrencySelectionViewController.currentCurrency!).continue({ task -> Any? in
                 if let error = task.error {
                     print(error)
@@ -261,26 +300,7 @@ extension MainViewController: CurrencySelectionViewControllerDelegate {
             })
         } else {
             lowerCurrencySelectionViewController.currentCurrency = balance.currency
-            
-            if let text = getView().lowerCurrencyExchangeView.amountTextField.text, !text.isEmpty {
-                let formatter = NumberFormatter()
-                let toAmount = Double(formatter.number(from: text)!)
-                let fromCurrency = upperCurrencySelectionViewController.currentCurrency!
-                let toCurrency = lowerCurrencySelectionViewController.currentCurrency!
-                
-                currencyExchangeManager.getFromAmount(toAmount: toAmount, toCurrency: toCurrency, fromCurrency: fromCurrency).continue({ task -> Any? in
-                    if let error = task.error {
-                        print(error)
-                    } else {
-                        let fromAmount = task.result as! Double
-                        self.fromAmount = fromAmount
-                        let text = String.formatTo2f(fromAmount.round(to: 2)).replacingOccurrences(of: ".", with: ",")
-                        self.getView().upperCurrencyExchangeView.amountTextField.text = text
-                    }
-                    return nil
-                })
-            }
-            
+
             currencyExchangeManager.getToAmount(fromAmount: 1, fromCurrency: balance.currency, toCurrency: upperCurrencySelectionViewController.currentCurrency!).continue({ task -> Any? in
                 if let error = task.error {
                     print(error)
@@ -307,6 +327,7 @@ extension MainViewController: CurrencySelectionViewControllerDelegate {
                 return nil
             })
         }
+        handleAmountTextField()
         layoutCurrencyExchangeView()
     }
 }

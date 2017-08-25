@@ -35,6 +35,7 @@ class LowerCurrencyExchangeView: CurrencyExchangeView {
 protocol CurrencyExchangeViewDelegate: class {
     func onCurrencyExchangeButtonTapped(view: UIView)
     func onTextFieldDidChange(view: UIView, amount: Double?)
+    func onTextFieldDidBeginEditing(view: UIView)
 }
 
 class CurrencyExchangeView: UIView {
@@ -66,6 +67,7 @@ class CurrencyExchangeView: UIView {
     
     lazy var amountTextField: UITextField = {
         let textField = UITextField()
+        textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.keyboardType = .decimalPad
@@ -183,6 +185,13 @@ extension CurrencyExchangeView {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
+extension CurrencyExchangeView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.onTextFieldDidBeginEditing(view: self)
+    }
+}
 
 
 
